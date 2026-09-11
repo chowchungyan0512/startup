@@ -1,4 +1,4 @@
-# Your startup name here
+# CampusConnect
 
 [My Notes](notes.md)
 
@@ -12,7 +12,7 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+CampusConnect is a web app that lets college students connect with study partners and arrange study groups. Students are able to create their own profiles, connect with other students who are taking the same classes, create or join study groups, and communicate using real-time chat. CampusConnect combines study groups and communication into one app.
 
 ### Design
 
@@ -29,18 +29,23 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- User Account — Users can create an account and log into the system.
+- User Profile — The user has the ability to add personal information like major and class.
+- Study Session — Students can create study sessions with course, date, time, location, and number of participants.
+- Find Study Partner — Students can look up study sessions along with other students taking similar classes.
+- Join Study Session — User can join open study groups.
+- Chat — Real-time chat allows members of the study group to communicate.
+- Study Location — Third-party location/map will be used in the app for details about study location.
+- Real-Time Notification — Users can get notifications whenever a new member joins the study session or sends a message.
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
+- **HTML** - HTML will be the base for the app's structure. Components written using React will utilize HTML elements to structure various pages such as the login page, dashboard, study session page, and user profile.
+- **CSS** - CSS will be used in designing CampusConnect and ensuring that the app is easy to use. This will include layout, color, button, card, navigation, form, responsive design, and animations.
+- **React** - React will be used to develop the user interface of CampusConnect. There will be many components such as navigation bars, study session cards, forms, profiles, and chat messages that can be used and reused within the app. React Router will be used for navigating pages without a need to refresh the page. React state will enable reactions to events like participating in a study session or receiving a new message.
+- **Service** - The web app backend will offer services related to authentication and other app functionalities. Examples of the functions that the backend will perform include user registration, user login, creation of study sessions, fetching study sessions, session joining, and more.
 - **DB/Login** - Description here
 - **WebSocket** - Description here
 
