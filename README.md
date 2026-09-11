@@ -45,9 +45,9 @@ I am going to use the required technologies in the following ways.
 - **HTML** - HTML will be the base for the app's structure. Components written using React will utilize HTML elements to structure various pages such as the login page, dashboard, study session page, and user profile.
 - **CSS** - CSS will be used in designing CampusConnect and ensuring that the app is easy to use. This will include layout, color, button, card, navigation, form, responsive design, and animations.
 - **React** - React will be used to develop the user interface of CampusConnect. There will be many components such as navigation bars, study session cards, forms, profiles, and chat messages that can be used and reused within the app. React Router will be used for navigating pages without a need to refresh the page. React state will enable reactions to events like participating in a study session or receiving a new message.
-- **Service** - The web app backend will offer services related to authentication and other app functionalities. Examples of the functions that the backend will perform include user registration, user login, creation of study sessions, fetching study sessions, session joining, and more.
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **Service** - The web app backend will offer services like authentication and other app functionalities. Examples of the functions that the backend will provide include user registration, user login, creation of study sessions, fetching study sessions, session joining, and more.
+- **DB/Login** - The database will hold authentication data and app data. The user accounts, user profiles, study sessions, membership to study sessions, and chats will be held in the database.
+- **WebSocket** - WebSocket will facilitate real-time communication between the frontend and backend. It will mainly be used for the study-session chat. WebSocket can also be used to notify the user if anyone joins their study session.
 
 ## 🚀 Specification Deliverable
 
