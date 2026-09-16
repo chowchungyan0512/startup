@@ -89,12 +89,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
+- [x] **Visually appealing colors and layout. No overflowing elements.** - Added a responsive CampusConnect layout with a teal, coral, cream, and yellow visual system.
+- [x] **Use of a CSS framework** - Added Bootstrap 5.3 through its CDN and used its form, button, and utility classes alongside the custom design.
+- [x] **All visual elements styled using CSS** - Styled navigation, cards, forms, buttons, session records, status badges, and responsive states in `styles.css`.
+- [x] **Responsive to window resizing using flexbox and/or grid display** - Used CSS Grid, Flexbox, and a mobile breakpoint across the pages.
+- [x] **Use of an imported font** - Imported DM Sans and Space Grotesk from Google Fonts.
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - Used element, class, ID, attribute, descendant, and pseudo-class selectors.
 
 ## 🚀 React part 1: Routing deliverable
 
