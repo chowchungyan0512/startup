@@ -74,13 +74,13 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [x] **HTML pages** - Added `login.html`, `index.html`, and `study-session.html`.
+- [x] **HTML pages** - Added `login.html`, `index.html`, `study-session.html`, and `profile.html`.
 - [x] **Proper HTML element usage** - Used semantic `header`, `nav`, `main`, `section`, `article`, `form`, and `footer` elements.
-- [x] **Links** - Added navigation links between login, the main dashboard, and the study-session page.
-- [x] **Text** - Added CampusConnect content for authentication, session discovery, and session creation.
+- [x] **Links** - Added navigation links between login, the main dashboard, study-session creation, and the user profile.
+- [x] **Text** - Added CampusConnect content for authentication, session discovery, session creation, and study-partner matching.
 - [x] **3rd party API placeholder** - Added a campus map API placeholder for validating study locations.
 - [x] **Images** - Added the existing CampusConnect design image to the login page.
-- [x] **Login placeholder** - Added a login form and Alex Morgan user display in the navigation.
+- [x] **Login placeholder** - Added a login form and Alex Morgan user display in the navigation, which opens the editable profile page.
 - [x] **DB data placeholder** - Added sample open study sessions labeled as database records.
 - [x] **WebSocket placeholder** - Added a group chat area labeled for a future WebSocket connection.
 
