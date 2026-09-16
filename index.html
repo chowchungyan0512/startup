@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | CampusConnect</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">+</span> CampusConnect</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="study-session.html">Create a session</a>
+      <a href="login.html" class="user-chip">Alex Morgan · Log out</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="dashboard-hero" aria-labelledby="welcome-title">
+      <div>
+        <p class="eyebrow">Tuesday, September 16</p>
+        <h1 id="welcome-title">Good morning, Alex.</h1>
+        <p>Your next great study session is closer than you think.</p>
+      </div>
+      <a class="button button-primary" href="study-session.html">+ Create a session</a>
+    </section>
+
+    <section aria-labelledby="tools-title">
+      <p class="eyebrow">Your campus toolkit</p>
+      <h2 id="tools-title">What are you working on?</h2>
+      <div class="dashboard-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">⌕</div>
+          <h2>Find a study partner</h2>
+          <p>Browse classmates who are learning the same subjects and have open seats.</p>
+          <a href="#sessions">Browse sessions →</a>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">＋</div>
+          <h2>Start a study session</h2>
+          <p>Set the course, time, place, and group size. Your classmates can join.</p>
+          <a href="study-session.html">Create a session →</a>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">•••</div>
+          <h2>Stay connected</h2>
+          <p>Keep conversations with your study group in one focused place.</p>
+          <a href="#realtime">Open group chat →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="sessions" aria-labelledby="sessions-title">
+      <div class="section-heading">
+        <h2 id="sessions-title">Open sessions near you</h2>
+        <a href="study-session.html">Create new</a>
+      </div>
+      <div class="session-list">
+        <article class="session-card">
+          <div><h3>CS 260 · Web Programming</h3><p>Today, 6:30 PM · Harold B. Lee Library, Level 3</p></div>
+          <span class="status">3 / 6 seats</span>
+        </article>
+        <article class="session-card">
+          <div><h3>Biology 180 · Exam review</h3><p>Tomorrow, 4:00 PM · Life Sciences Building, Room 214</p></div>
+          <span class="status">2 / 4 seats</span>
+        </article>
+        <article class="session-card">
+          <div><h3>Spanish 201 · Conversation practice</h3><p>Thursday, 7:00 PM · The Commons, Table 8</p></div>
+          <span class="status">4 / 8 seats</span>
+        </article>
+      </div>
+      <p class="data-note"><strong>Database placeholder:</strong> These session cards represent study-session records that will be loaded from the CampusConnect database.</p>
+    </section>
+
+    <section id="realtime" class="section-heading" aria-labelledby="realtime-title">
+      <h2 id="realtime-title">Group chat</h2>
+      <p class="muted">WebSocket connection placeholder · Live messages will appear here.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p>CampusConnect · <a href="login.html">Switch account</a> · Map service placeholder for study locations</p></footer>
+</body>
+</html>
