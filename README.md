@@ -73,7 +73,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
 - [x] **HTML pages** - Added `login.html`, `index.html`, `study-session.html`, and `profile.html`.
 - [x] **Proper HTML element usage** - Used semantic `header`, `nav`, `main`, `section`, `article`, `form`, and `footer` elements.
 - [x] **Links** - Added navigation links between login, the main dashboard, study-session creation, and the user profile.
