@@ -78,17 +78,17 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Proper HTML element usage** - Used semantic `header`, `nav`, `main`, `section`, `article`, `form`, and `footer` elements.
 - [x] **Links** - Added navigation links between login, the main dashboard, study-partner discovery, study-session creation, the user profile, and group chat.
 - [x] **Text** - Added CampusConnect content for authentication, session discovery, session creation, study-partner matching, host information, and group conversation.
-- [x] **3rd party API placeholder** - Added a campus map API placeholder for validating study locations.
-- [x] **Images** - Added the existing CampusConnect design image to the login page.
-- [x] **Login placeholder** - Added a login form and Alex Morgan user display in the navigation, which opens the editable profile page.
-- [x] **DB data placeholder** - Added sample open study sessions labeled as database records.
-- [x] **WebSocket placeholder** - Added `chat.html` with joined-session conversations and a clearly labeled placeholder for the future WebSocket connection.
+- [x] **3rd party API placeholder** - Added a campus map API placeholder on `study-session.html` for validating study locations, and a calendar-sync API placeholder on `profile.html` for syncing availability and joined sessions.
+- [x] **Images** - Added the CampusConnect design image to the login page and a placeholder profile image used as the avatar across the navigation, profile, and chat pages.
+- [x] **Login placeholder** - Added a login form and Alex Morgan user display with avatar in the navigation dropdown, which opens the editable profile page.
+- [x] **DB data placeholder** - Added sample open study sessions and joined sessions on `index.html`, session/host search results on `find-partners.html`, and saved profile fields on `profile.html`, all labeled as database records.
+- [x] **WebSocket placeholder** - Added `chat.html` with joined-session conversations and a clearly labeled placeholder for the future WebSocket connection, plus a "Recent notifications" section on `index.html` labeled as a real-time placeholder for live updates.
 
 ## 🚀 CSS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
 - [x] **Visually appealing colors and layout. No overflowing elements.** - Added a responsive CampusConnect layout with a teal, coral, cream, and yellow visual system.
 - [x] **Use of a CSS framework** - Added Bootstrap 5.3 through its CDN and used its form, button, and utility classes alongside the custom design.
 - [x] **All visual elements styled using CSS** - Styled navigation, cards, forms, buttons, session records, status badges, and responsive states in `styles.css`.
