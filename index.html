@@ -99,9 +99,34 @@
       </div>
     </section>
 
-    <section id="realtime" class="section-heading" aria-labelledby="realtime-title">
-      <h2 id="realtime-title">Group chat</h2>
-      <p class="muted">WebSocket connection placeholder · Live messages will appear here.</p>
+    <section id="notifications" aria-labelledby="notifications-title">
+      <div class="section-heading">
+        <h2 id="notifications-title">Recent notifications</h2>
+      </div>
+      <div class="notification-list">
+        <article class="notification-item">
+          <span class="notification-dot" aria-hidden="true"></span>
+          <div>
+            <p><strong>Jordan Lee</strong> joined your CS 260 · Web Programming session.</p>
+            <p class="notification-time">2 minutes ago</p>
+          </div>
+        </article>
+        <article class="notification-item">
+          <span class="notification-dot" aria-hidden="true"></span>
+          <div>
+            <p><strong>Maya Patel</strong> sent a message in Biology 180 · Exam review.</p>
+            <p class="notification-time">18 minutes ago</p>
+          </div>
+        </article>
+        <article class="notification-item">
+          <span class="notification-dot" aria-hidden="true"></span>
+          <div>
+            <p>Your <strong>Spanish 201 · Conversation practice</strong> session starts in 2 days.</p>
+            <p class="notification-time">1 hour ago</p>
+          </div>
+        </article>
+      </div>
+      <p class="data-note"><strong>Real-time placeholder:</strong> These notifications will update live over a WebSocket connection once the service layer is built.</p>
     </section>
   </main>
 
