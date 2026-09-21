@@ -78,7 +78,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: 
 .dashboard-hero p { color: var(--muted); font-size: 1.1rem; margin-bottom: 0; }
 .dashboard-grid { display: grid; gap: 20px; grid-template-columns: repeat(3, 1fr); }
 .feature-card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; display: flex; flex-direction: column; min-height: 220px; padding: 26px; }
-.feature-card h2 { font-size: 1.4rem; margin: 10px 0; }
+.feature-card h3 { font-size: 1.4rem; margin: 10px 0; }
 .feature-card p { color: var(--muted); flex: 1; }
 .feature-icon { align-items: center; background: #e3f0e9; border-radius: 50%; color: var(--teal-dark); display: flex; font-size: 1.35rem; height: 42px; justify-content: center; width: 42px; }
 .section-heading { align-items: end; display: flex; justify-content: space-between; margin: 72px 0 18px; }
