@@ -178,3 +178,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: 
   .full-width { grid-column: auto; }
   .session-card { align-items: flex-start; grid-template-columns: 1fr; }
 }
+
+@media (max-width: 560px) {
+  .section-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
+}
