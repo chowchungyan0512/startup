@@ -46,7 +46,60 @@ if (partnerSearch) {
       button.classList.remove('button-primary');
       button.classList.add('button-light');
       button.disabled = true;
-      button.closest('[data-session-card]').querySelector('.join-confirmation').classList.add('is-visible');
+      const sessionCard = button.closest('[data-session-card]');
+      sessionCard.querySelector('.join-confirmation').classList.add('is-visible');
+      const chatLink = document.createElement('a');
+      chatLink.className = 'button button-light mt-2';
+      chatLink.href = `chat.html#${sessionCard.dataset.chatTab}`;
+      chatLink.textContent = 'Open chat';
+      button.parentElement.appendChild(chatLink);
     });
   });
+}
+
+const chatPage = document.querySelector('#chat-page');
+
+if (chatPage) {
+  const tabs = [...document.querySelectorAll('[data-chat-tab]')];
+  const conversations = [...document.querySelectorAll('[data-conversation]')];
+  const messageInput = document.querySelector('#message-input');
+  const sendButton = document.querySelector('#send-message');
+  let activeTab = 'cs260';
+
+  const showConversation = (tabName) => {
+    activeTab = tabName;
+    tabs.forEach((tab) => {
+      const isActive = tab.dataset.chatTab === tabName;
+      tab.classList.toggle('is-active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+    });
+    conversations.forEach((conversation) => {
+      conversation.hidden = conversation.dataset.conversation !== tabName;
+    });
+  };
+
+  tabs.forEach((tab) => tab.addEventListener('click', () => showConversation(tab.dataset.chatTab)));
+
+  const updateSendState = () => {
+    sendButton.disabled = !messageInput.value.trim();
+  };
+
+  messageInput.addEventListener('input', updateSendState);
+  sendButton.addEventListener('click', () => {
+    const message = messageInput.value.trim();
+    if (!message) return;
+
+    const messageBubble = document.createElement('div');
+    messageBubble.className = 'chat-message chat-message-you';
+    messageBubble.innerHTML = `<span class="chat-author">You · just now</span><p></p>`;
+    messageBubble.querySelector('p').textContent = message;
+    document.querySelector(`[data-conversation="${activeTab}"] .chat-messages`).appendChild(messageBubble);
+    messageInput.value = '';
+    updateSendState();
+    messageInput.focus();
+  });
+
+  const requestedTab = window.location.hash.slice(1);
+  if (requestedTab === 'biology180') showConversation('biology180');
+  updateSendState();
 }
