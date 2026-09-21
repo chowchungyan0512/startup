@@ -88,7 +88,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] I completed the prerequisites for this deliverable (Simon deployed to [simon.campusconnect.click](https://simon.campusconnect.click), source at [github.com/chowchungyan0512/simon-css](https://github.com/chowchungyan0512/simon-css) with a footer link back to this startup repository, Git commits)
 - [x] **Visually appealing colors and layout. No overflowing elements.** - Added a responsive CampusConnect layout with a teal, coral, cream, and yellow visual system.
 - [x] **Use of a CSS framework** - Added Bootstrap 5.3 through its CDN and used its form, button, and utility classes alongside the custom design.
 - [x] **All visual elements styled using CSS** - Styled navigation, cards, forms, buttons, session records, status badges, and responsive states in `styles.css`.
