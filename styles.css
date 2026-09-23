@@ -55,9 +55,10 @@ main { margin: 0 auto; max-width: 1180px; padding: 56px 28px 90px; }
 .eyebrow { color: var(--coral); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
 .muted { color: var(--muted); }
 .button { border: 0; border-radius: 6px; cursor: pointer; display: inline-block; font: inherit; font-weight: 700; padding: 13px 20px; text-decoration: none; }
-.button-primary { background: var(--teal); color: white; }
+.button-primary { background: var(--teal); color: white; transition: background 0.15s ease; }
 .button-primary:hover { background: var(--teal-dark); }
-.button-light { background: var(--surface); border: 1px solid var(--line); color: var(--teal-dark); }
+.button-light { background: var(--surface); border: 1px solid var(--line); color: var(--teal-dark); transition: background 0.15s ease, border-color 0.15s ease; }
+.button-light:hover { background: #edf3ef; border-color: var(--teal); }
 
 .login-shell { align-items: center; display: grid; gap: 70px; grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr); min-height: 70vh; }
 .login-intro { position: relative; }
