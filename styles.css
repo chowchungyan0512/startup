@@ -162,6 +162,8 @@ input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: 
 .chat-message-you { background: #dcefee; justify-self: end; }
 .chat-message p { margin: 4px 0 0; }
 .chat-author { color: var(--teal-dark); font-size: 0.78rem; font-weight: 700; }
+.chat-author a { text-decoration: underline; }
+.chat-author a:hover { color: var(--teal); }
 .chat-composer { border-top: 1px solid var(--line); display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; }
 .chat-composer input { flex: 1; min-width: 0; }
 .chat-composer .button { flex-shrink: 0; width: 80px; }
