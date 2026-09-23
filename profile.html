@@ -78,9 +78,66 @@
               <option>Practice exams</option>
             </select>
           </div>
-          <div class="form-row">
-            <label for="availability">Typical availability</label>
-            <input class="form-control" id="availability" name="availability" type="text" value="Weekday evenings" required>
+          <div class="form-row full-width">
+            <fieldset class="availability-field">
+              <legend>Typical availability</legend>
+              <div class="table-scroll">
+                <table class="availability-table">
+                  <thead>
+                    <tr>
+                      <th scope="col"><span class="visually-hidden">Day</span></th>
+                      <th scope="col">Morning</th>
+                      <th scope="col">Afternoon</th>
+                      <th scope="col">Evening</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Mon</th>
+                      <td><input type="checkbox" name="availability" value="mon-morning" aria-label="Monday morning"></td>
+                      <td><input type="checkbox" name="availability" value="mon-afternoon" aria-label="Monday afternoon"></td>
+                      <td><input type="checkbox" name="availability" value="mon-evening" aria-label="Monday evening" checked></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Tue</th>
+                      <td><input type="checkbox" name="availability" value="tue-morning" aria-label="Tuesday morning"></td>
+                      <td><input type="checkbox" name="availability" value="tue-afternoon" aria-label="Tuesday afternoon"></td>
+                      <td><input type="checkbox" name="availability" value="tue-evening" aria-label="Tuesday evening" checked></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Wed</th>
+                      <td><input type="checkbox" name="availability" value="wed-morning" aria-label="Wednesday morning"></td>
+                      <td><input type="checkbox" name="availability" value="wed-afternoon" aria-label="Wednesday afternoon"></td>
+                      <td><input type="checkbox" name="availability" value="wed-evening" aria-label="Wednesday evening" checked></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Thu</th>
+                      <td><input type="checkbox" name="availability" value="thu-morning" aria-label="Thursday morning"></td>
+                      <td><input type="checkbox" name="availability" value="thu-afternoon" aria-label="Thursday afternoon"></td>
+                      <td><input type="checkbox" name="availability" value="thu-evening" aria-label="Thursday evening" checked></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Fri</th>
+                      <td><input type="checkbox" name="availability" value="fri-morning" aria-label="Friday morning"></td>
+                      <td><input type="checkbox" name="availability" value="fri-afternoon" aria-label="Friday afternoon"></td>
+                      <td><input type="checkbox" name="availability" value="fri-evening" aria-label="Friday evening" checked></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Sat</th>
+                      <td><input type="checkbox" name="availability" value="sat-morning" aria-label="Saturday morning"></td>
+                      <td><input type="checkbox" name="availability" value="sat-afternoon" aria-label="Saturday afternoon"></td>
+                      <td><input type="checkbox" name="availability" value="sat-evening" aria-label="Saturday evening"></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Sun</th>
+                      <td><input type="checkbox" name="availability" value="sun-morning" aria-label="Sunday morning"></td>
+                      <td><input type="checkbox" name="availability" value="sun-afternoon" aria-label="Sunday afternoon"></td>
+                      <td><input type="checkbox" name="availability" value="sun-evening" aria-label="Sunday evening"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </fieldset>
           </div>
           <div class="form-row full-width">
             <label for="bio">About your study goals</label>
