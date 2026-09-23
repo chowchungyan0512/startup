@@ -171,8 +171,8 @@ input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: 
   .search-row, .advanced-filters { grid-template-columns: 1fr; }
   .results-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
   .profile-layout { grid-template-columns: 1fr; }
-  .profile-summary { text-align: left; }
-  .profile-avatar { display: block; }
+  .profile-summary { align-items: center; display: flex; gap: 16px; text-align: left; }
+  .profile-avatar { flex-shrink: 0; }
   .chat-layout { grid-template-columns: 1fr; }
   .chat-tabs { grid-template-columns: 1fr 1fr; }
   .chat-window { min-height: 0; }
