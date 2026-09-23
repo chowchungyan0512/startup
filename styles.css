@@ -85,7 +85,9 @@ input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: 
 .section-heading h2 { font-size: 1.6rem; margin: 0; }
 .section-heading a { color: var(--teal); font-weight: 700; }
 .session-list { display: grid; gap: 14px; }
-.session-card { align-items: center; background: var(--surface); border-left: 5px solid var(--coral); border-radius: 6px; box-shadow: 0 4px 16px rgba(25, 52, 47, 0.05); display: grid; gap: 18px; grid-template-columns: 1fr auto; padding: 20px 22px; }
+.session-card { align-items: center; background: var(--surface); border-left: 5px solid var(--coral); border-radius: 6px; box-shadow: 0 4px 16px rgba(25, 52, 47, 0.05); display: grid; gap: 18px; grid-template-columns: 1fr auto; padding: 20px 22px; transition: opacity 0.3s ease, transform 0.3s ease; }
+.session-card.is-leaving { opacity: 0; transform: translateY(-10px); }
+.session-card.is-entering { opacity: 0; transform: translateY(14px); }
 .session-card h3 { font-size: 1.15rem; margin-bottom: 4px; }
 .session-card p { color: var(--muted); margin: 0; }
 .session-card .session-details { min-width: 0; }

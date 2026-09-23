@@ -42,13 +42,68 @@ if (partnerSearch) {
   filterFields.forEach((field) => field.addEventListener('change', updateResults));
 }
 
+const joinedSessionList = document.querySelector('#joined-title')?.closest('section').querySelector('.session-list');
+
+const flipAnimate = (elements, mutate) => {
+  const firstRects = new Map(elements.map((el) => [el, el.getBoundingClientRect()]));
+  mutate();
+  elements.forEach((el) => {
+    if (!el.isConnected) return;
+    const deltaY = firstRects.get(el).top - el.getBoundingClientRect().top;
+    if (!deltaY) return;
+    el.style.transition = 'none';
+    el.style.transform = `translateY(${deltaY}px)`;
+    requestAnimationFrame(() => {
+      el.style.transition = 'transform 0.3s ease';
+      el.style.transform = '';
+    });
+    el.addEventListener('transitionend', () => {
+      el.style.transition = '';
+    }, { once: true });
+  });
+};
+
 document.querySelectorAll('[data-join-button]').forEach((button) => {
   button.addEventListener('click', () => {
+    const sessionCard = button.closest('[data-session-card]');
+    const openSessionsList = sessionCard.closest('#sessions .session-list');
+
+    if (openSessionsList && joinedSessionList) {
+      const title = sessionCard.querySelector('h3').textContent;
+      const details = sessionCard.querySelector('p').textContent;
+      const chatTab = sessionCard.dataset.chatTab;
+      const pageSections = [...document.querySelectorAll('main > section')];
+
+      const joinedCard = document.createElement('article');
+      joinedCard.className = 'session-card joined-card is-entering';
+      joinedCard.innerHTML = `
+        <div class="session-details">
+          <h3>${title}</h3>
+          <p>${details}</p>
+          <p class="session-host">You joined this session</p>
+        </div>
+        <a class="button button-light" href="chat.html#${chatTab}">Open chat</a>
+      `;
+
+      flipAnimate(pageSections, () => {
+        joinedSessionList.appendChild(joinedCard);
+        sessionCard.classList.add('is-leaving');
+      });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => joinedCard.classList.remove('is-entering'));
+      });
+
+      setTimeout(() => {
+        const siblings = [...openSessionsList.children].filter((el) => el !== sessionCard);
+        flipAnimate([...pageSections, ...siblings], () => sessionCard.remove());
+      }, 300);
+      return;
+    }
+
     button.textContent = 'Joined';
     button.classList.remove('button-primary');
     button.classList.add('button-light');
     button.disabled = true;
-    const sessionCard = button.closest('[data-session-card]');
     sessionCard.querySelector('.join-confirmation').classList.add('is-visible');
     const chatLink = document.createElement('a');
     chatLink.className = 'button button-light mt-2';
