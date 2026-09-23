@@ -1,3 +1,10 @@
+document.querySelectorAll('form[method="post"]').forEach((form) => {
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    window.location.href = form.getAttribute('action');
+  });
+});
+
 const closeUserMenu = (menu) => {
   menu.classList.remove('is-open');
   menu.querySelector('.user-menu-trigger').setAttribute('aria-expanded', 'false');
