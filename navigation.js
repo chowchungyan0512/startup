@@ -1,9 +1,27 @@
+const closeUserMenu = (menu) => {
+  menu.classList.remove('is-open');
+  menu.querySelector('.user-menu-trigger').setAttribute('aria-expanded', 'false');
+};
+
+document.querySelectorAll('.user-menu-trigger').forEach((trigger) => {
+  trigger.addEventListener('click', () => {
+    const menu = trigger.closest('.user-menu');
+    const isOpen = menu.classList.toggle('is-open');
+    trigger.setAttribute('aria-expanded', String(isOpen));
+  });
+});
+
 document.addEventListener('click', (event) => {
-  document.querySelectorAll('.user-menu[open]').forEach((menu) => {
+  document.querySelectorAll('.user-menu.is-open').forEach((menu) => {
     if (!menu.contains(event.target)) {
-      menu.removeAttribute('open');
+      closeUserMenu(menu);
     }
   });
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  document.querySelectorAll('.user-menu.is-open').forEach(closeUserMenu);
 });
 
 const partnerSearch = document.querySelector('#partner-search');
