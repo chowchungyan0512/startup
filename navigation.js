@@ -40,22 +40,23 @@ if (partnerSearch) {
 
   partnerSearch.addEventListener('input', updateResults);
   filterFields.forEach((field) => field.addEventListener('change', updateResults));
-  document.querySelectorAll('[data-join-button]').forEach((button) => {
-    button.addEventListener('click', () => {
-      button.textContent = 'Joined';
-      button.classList.remove('button-primary');
-      button.classList.add('button-light');
-      button.disabled = true;
-      const sessionCard = button.closest('[data-session-card]');
-      sessionCard.querySelector('.join-confirmation').classList.add('is-visible');
-      const chatLink = document.createElement('a');
-      chatLink.className = 'button button-light mt-2';
-      chatLink.href = `chat.html#${sessionCard.dataset.chatTab}`;
-      chatLink.textContent = 'Open chat';
-      button.parentElement.appendChild(chatLink);
-    });
-  });
 }
+
+document.querySelectorAll('[data-join-button]').forEach((button) => {
+  button.addEventListener('click', () => {
+    button.textContent = 'Joined';
+    button.classList.remove('button-primary');
+    button.classList.add('button-light');
+    button.disabled = true;
+    const sessionCard = button.closest('[data-session-card]');
+    sessionCard.querySelector('.join-confirmation').classList.add('is-visible');
+    const chatLink = document.createElement('a');
+    chatLink.className = 'button button-light mt-2';
+    chatLink.href = `chat.html#${sessionCard.dataset.chatTab}`;
+    chatLink.textContent = 'Open chat';
+    button.parentElement.appendChild(chatLink);
+  });
+});
 
 const chatPage = document.querySelector('#chat-page');
 
