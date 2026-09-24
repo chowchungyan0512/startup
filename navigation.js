@@ -125,16 +125,14 @@ document.querySelectorAll('[data-join-button]').forEach((button) => {
       return;
     }
 
-    button.textContent = 'Joined';
-    button.classList.remove('button-primary');
-    button.classList.add('button-light');
-    button.disabled = true;
     sessionCard.querySelector('.join-confirmation').classList.add('is-visible');
+    const statusBadge = sessionCard.querySelector('.status');
+    statusBadge.textContent = `Joined · ${statusBadge.textContent}`;
     const chatLink = document.createElement('a');
-    chatLink.className = 'button button-light mt-2';
+    chatLink.className = 'button button-light';
     chatLink.href = `chat.html#${sessionCard.dataset.chatTab}`;
     chatLink.textContent = 'Open chat';
-    button.parentElement.appendChild(chatLink);
+    button.replaceWith(chatLink);
   });
 });
 

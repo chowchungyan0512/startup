@@ -97,6 +97,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: 
 .session-card .session-host a:hover { color: var(--teal); }
 .session-card .session-host span { color: var(--muted); font-weight: 400; }
 .session-card .button { white-space: nowrap; }
+.session-meta { align-items: flex-end; display: flex; flex-direction: column; gap: 10px; }
 .joined-card { border-left-color: var(--teal); }
 .status { background: #e3f0e9; border-radius: 20px; color: var(--teal-dark); font-size: 0.78rem; font-weight: 700; padding: 6px 10px; }
 .data-note { background: #edf3ef; border: 1px dashed #a9c3b7; border-radius: 6px; color: var(--teal-dark); margin-top: 28px; padding: 14px 18px; }
