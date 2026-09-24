@@ -111,9 +111,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: 
 .search-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; margin: 34px 0 42px; padding: 26px; }
 .search-row { align-items: end; display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr) 180px auto; }
 .search-row .form-row { margin-bottom: 0; }
-.filter-toggle { border: 0; color: var(--teal); cursor: pointer; font: inherit; font-weight: 700; padding: 8px 0 0; }
-.filter-toggle::before { content: '+'; margin-right: 7px; }
-.filter-toggle[aria-expanded='true']::before { content: '−'; }
 .advanced-filters { border-top: 1px solid var(--line); display: none; gap: 16px; grid-template-columns: repeat(3, 1fr); margin-top: 24px; padding-top: 24px; }
 .advanced-filters.is-visible { display: grid; }
 .results-heading { align-items: end; display: flex; justify-content: space-between; margin-bottom: 18px; }
