@@ -41,7 +41,7 @@ a { color: inherit; }
 .brand { color: var(--teal-dark); font-size: 1.35rem; font-weight: 700; text-decoration: none; }
 .brand-mark { color: var(--coral); }
 .site-nav { align-items: center; display: flex; gap: 24px; }
-.site-nav a { color: var(--muted); font-weight: 700; text-decoration: none; }
+.site-nav a { color: var(--muted); font-weight: 700; text-decoration: none; transition: color 0.15s ease; }
 .site-nav a:hover, .site-nav a[aria-current='page'] { color: var(--teal); }
 .user-menu { color: var(--teal-dark); font-weight: 700; position: relative; }
 .user-menu-trigger { align-items: center; background: none; border: 0; color: inherit; cursor: pointer; display: flex; font: inherit; font-weight: 700; gap: 8px; padding: 0; }
@@ -153,7 +153,8 @@ input:focus, select:focus, textarea:focus { border-color: var(--teal); outline: 
 
 .chat-layout { display: grid; gap: 24px; grid-template-columns: 230px minmax(0, 1fr); margin-top: 36px; }
 .chat-tabs { display: grid; gap: 10px; align-content: start; }
-.chat-tab { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; font: inherit; padding: 15px; text-align: left; }
+.chat-tab { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; font: inherit; padding: 15px; text-align: left; transition: background 0.15s ease, border-color 0.15s ease; }
+.chat-tab:hover { border-color: var(--teal); }
 .chat-tab strong, .chat-tab span { display: block; }
 .chat-tab span { font-size: 0.82rem; margin-top: 4px; }
 .chat-tab.is-active { background: var(--teal); border-color: var(--teal); color: white; }
