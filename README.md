@@ -79,7 +79,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Links** - Added navigation links between login, the main dashboard, study-partner discovery, study-session creation, the user profile, and group chat.
 - [x] **Text** - Added CampusConnect content for authentication, session discovery, session creation, study-partner matching, host information, and group conversation.
 - [x] **3rd party API placeholder** - Added a campus map API placeholder on `study-session.html` for validating study locations, and a calendar-sync API placeholder on `profile.html` for syncing availability and joined sessions.
-- [x] **Images** - Added the CampusConnect design image to the login page and a placeholder profile image used as the avatar across the navigation, profile, and chat pages.
+- [x] **Images** - Added a placeholder profile image used as the avatar across the navigation, profile, chat, and classmate-profile pages.
 - [x] **Login placeholder** - Added a login form and Alex Morgan user display with avatar in the navigation dropdown, which opens the editable profile page.
 - [x] **DB data placeholder** - Added sample open study sessions and joined sessions on `index.html`, session/host search results on `find-partners.html`, and saved profile fields on `profile.html`, all labeled as database records.
 - [x] **WebSocket placeholder** - Added `chat.html` with joined-session conversations and a clearly labeled placeholder for the future WebSocket connection, plus a "Recent notifications" section on `index.html` labeled as a real-time placeholder for live updates.
