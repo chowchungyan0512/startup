@@ -9,6 +9,7 @@
   --teal: #126b68;
   --teal-dark: #0b4f4d;
   --coral: #e8755b;
+  --coral-text: #b34a37;
   --yellow: #f3c969;
   --shadow: 0 18px 45px rgba(25, 52, 47, 0.1);
 }
@@ -39,7 +40,7 @@ a { color: inherit; }
 }
 
 .brand { color: var(--teal-dark); font-size: 1.35rem; font-weight: 700; text-decoration: none; }
-.brand-mark { color: var(--coral); }
+.brand-mark { color: var(--coral-text); }
 .site-nav { align-items: center; display: flex; gap: 24px; }
 .site-nav a { color: var(--muted); font-weight: 700; text-decoration: none; transition: color 0.15s ease; }
 .site-nav a:hover, .site-nav a[aria-current='page'] { color: var(--teal); }
@@ -52,9 +53,10 @@ a { color: inherit; }
 .user-menu-panel a:hover { background: #edf3ef; border-radius: 4px; }
 
 main { margin: 0 auto; max-width: 1180px; padding: 56px 28px 90px; }
-.eyebrow { color: var(--coral); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.eyebrow { color: var(--coral-text); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
 .muted { color: var(--muted); }
 .button { border: 0; border-radius: 6px; cursor: pointer; display: inline-block; font: inherit; font-weight: 700; padding: 13px 20px; text-decoration: none; }
+.button:focus-visible { outline: 2px solid var(--teal-dark); outline-offset: 2px; }
 .button-primary { background: var(--teal); color: white; transition: background 0.15s ease; }
 .button-primary:hover { background: var(--teal-dark); }
 .button-light { background: var(--surface); border: 1px solid var(--line); color: var(--teal-dark); transition: background 0.15s ease, border-color 0.15s ease; }
