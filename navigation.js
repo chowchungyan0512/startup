@@ -136,7 +136,7 @@ document.querySelectorAll('[data-join-button]').forEach((button) => {
   });
 });
 
-const chatPage = document.querySelector('#chat-page');
+const chatPage = document.querySelector('.page-chat');
 
 if (chatPage) {
   const tabs = [...document.querySelectorAll('[data-chat-tab]')];
