@@ -27,4 +27,10 @@ Reviewed and deployed the course's Simon CSS example to simon.campusconnect.clic
 
 ## React
 
-Interesting things I have learned about React
+Ported the Simon CSS example over to React with Vite and React Router, then deployed it to simon.campusconnect.click, replacing the static CSS version. Key things that clicked:
+
+- A Vite React app is a single `index.html` with one `<div id="root">` — React Router swaps what renders inside it based on the URL, instead of the browser loading a different `.html` file per page like my static CampusConnect pages do.
+- Each view (login, play, scores, about) became its own component in its own folder, with its own scoped CSS file imported directly into the component (`import './play.css'`) instead of one shared stylesheet — this made it obvious which styles belong to which view.
+- `class` becomes `className` in JSX since `class` is a reserved JavaScript keyword.
+- Static assets referenced by URL (like `placeholder.jpg`) need to live in `public/` and be referenced from the site root (`/placeholder.jpg`), since Vite doesn't process that folder's contents at all.
+- The production deploy is different from a static site: you have to `npm run build` first (which bundles everything into a `dist/` folder) and deploy *that*, not the raw source files.

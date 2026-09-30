@@ -100,7 +100,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] I completed the prerequisites for this deliverable (Simon ported to React and deployed to [simon.campusconnect.click](https://simon.campusconnect.click), with a footer link back to this startup repository, Git commits)
 - [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
 - [ ] **Components** - I did not complete this part of the deliverable.
 - [ ] **Router** - I did not complete this part of the deliverable.
