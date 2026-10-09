@@ -9,6 +9,7 @@ import { FindPartners } from './findPartners/findPartners';
 import { StudySession } from './studySession/studySession';
 import { Chat } from './chat/chat';
 import { Profile } from './profile/profile';
+import { OtherProfile } from './otherProfile/otherProfile';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/study-session" element={<StudySession />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/classmates/jordan-lee" element={<OtherProfile />} />
       </Routes>
       <Footer />
     </BrowserRouter>
