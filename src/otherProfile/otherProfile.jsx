@@ -1,57 +1,11 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import '../common/profileLayout.css';
-
-const classmates = {
-  'jordan-lee': {
-    name: 'Jordan Lee',
-    email: 'jordan.lee@university.edu',
-    major: 'Computer Science',
-    year: 'Senior',
-    classes: 'CS 260, Math 112, Chem 106',
-    sharedClass: 'CS 260',
-    style: 'Collaborative problem solving',
-    availability: 'Weekday evenings',
-    about: 'I like hosting review sessions before exams and going through practice problems as a group.',
-  },
-  'maya-patel': {
-    name: 'Maya Patel',
-    email: 'maya.patel@university.edu',
-    major: 'Biology',
-    year: 'Sophomore',
-    classes: 'Biology 180, Chem 106, Math 112',
-    sharedClass: 'Biology 180',
-    style: 'Flashcards and discussion',
-    availability: 'Weekday afternoons',
-    about: 'I am prepping for exams and like to make review sheets the group can share.',
-  },
-  'elena-garcia': {
-    name: 'Elena Garcia',
-    email: 'elena.garcia@university.edu',
-    major: 'Spanish',
-    year: 'Junior',
-    classes: 'Spanish 201, CS 260',
-    sharedClass: 'Spanish 201',
-    style: 'Discussion',
-    availability: 'Weekday evenings',
-    about: 'I host conversation practice sessions and love meeting at The Commons.',
-  },
-  'priya-shah': {
-    name: 'Priya Shah',
-    email: 'priya.shah@university.edu',
-    major: 'Computer Science',
-    year: 'Senior',
-    classes: 'CS 260, Math 112',
-    sharedClass: 'CS 260',
-    style: 'Practice exams',
-    availability: 'Weekday evenings',
-    about: 'I bring practice problems from lecture and like working through them as a group.',
-  },
-};
+import { mockClassmates } from '../data/mockClassmates';
 
 export function OtherProfile() {
   const { username } = useParams();
-  const classmate = classmates[username] ?? classmates['jordan-lee'];
+  const classmate = mockClassmates[username] ?? mockClassmates['jordan-lee'];
 
   return (
     <main className="form-page">
