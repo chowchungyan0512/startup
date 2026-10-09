@@ -10,6 +10,7 @@ import { StudySession } from './studySession/studySession';
 import { Chat } from './chat/chat';
 import { Profile } from './profile/profile';
 import { OtherProfile } from './otherProfile/otherProfile';
+import { NotFound } from './common/notFound';
 
 export default function App() {
   return (
@@ -28,8 +29,4 @@ export default function App() {
       <Footer />
     </BrowserRouter>
   );
-}
-
-function NotFound() {
-  return <main>404: Page not found.</main>;
 }
