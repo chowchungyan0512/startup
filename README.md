@@ -101,9 +101,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [x] I completed the prerequisites for this deliverable (Simon ported to React and deployed to [simon.campusconnect.click](https://simon.campusconnect.click), with a footer link back to this startup repository, Git commits)
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] **Bundled using Vite** - Replaced the static HTML pages with a Vite project (`package.json`, `vite.config.js`). `index.html` is now the Vite/React entry point that loads `src/main.jsx`, and `npm run build` produces the production bundle in `dist/`.
+- [x] **Components** - Converted every page into its own React component: `Home`, `Login`, `FindPartners`, `StudySession`, `Chat`, `Profile`, and `OtherProfile` (the classmate view), plus shared `Header` and `Footer` components used across all pages. No reactivity was added yet, as that is scoped to the next deliverable.
+- [x] **Router** - Added `react-router-dom` with a `BrowserRouter`/`Routes` setup in `app.jsx`. The header navigation uses `NavLink` so the active page is highlighted the same way the static `aria-current` styling worked before, and a catch-all route renders a 404 page.
 
 ## 🚀 React part 2: Reactivity deliverable
 
