@@ -1,0 +1,8 @@
+.availability-field { border: 0; margin: 0; padding: 0; }
+.availability-field legend { font-size: 0.9rem; font-weight: 700; margin-bottom: 7px; padding: 0; }
+.table-scroll { overflow-x: auto; }
+.availability-table { border-collapse: collapse; width: 100%; }
+.availability-table th, .availability-table td { padding: 8px 6px; text-align: center; }
+.availability-table thead th { color: var(--muted); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; }
+.availability-table tbody th { color: var(--ink); font-size: 0.9rem; font-weight: 700; text-align: left; }
+.availability-table input[type='checkbox'] { accent-color: var(--teal); height: 18px; width: 18px; }

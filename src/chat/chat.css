@@ -1,0 +1,29 @@
+.chat-layout { display: grid; gap: 24px; grid-template-columns: 230px minmax(0, 1fr); margin-top: 36px; }
+.chat-tabs { display: grid; gap: 10px; align-content: start; }
+.chat-tab { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; font: inherit; padding: 15px; text-align: left; transition: background 0.15s ease, border-color 0.15s ease; }
+.chat-tab:hover { border-color: var(--teal); }
+.chat-tab strong, .chat-tab span { display: block; }
+.chat-tab span { font-size: 0.82rem; margin-top: 4px; }
+.chat-tab.is-active { background: var(--teal); border-color: var(--teal); color: white; }
+.chat-window { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; min-height: 520px; padding: 24px; }
+.chat-window-header { border-bottom: 1px solid var(--line); margin-bottom: 20px; padding-bottom: 18px; }
+.chat-window-header h2 { font-size: 1.5rem; margin-bottom: 5px; }
+.chat-window-header p { color: var(--muted); margin: 0; }
+.chat-messages { display: grid; gap: 14px; min-height: 290px; }
+.chat-message { background: #edf3ef; border-radius: 6px; max-width: 78%; padding: 11px 14px; }
+.chat-message-you { background: #dcefee; justify-self: end; }
+.chat-message p { margin: 4px 0 0; }
+.chat-author { color: var(--teal-dark); font-size: 0.78rem; font-weight: 700; }
+.chat-author a { text-decoration: underline; }
+.chat-author a:hover { color: var(--teal); }
+.chat-composer { border-top: 1px solid var(--line); display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; }
+.chat-composer input { flex: 1; min-width: 0; }
+.chat-composer .button { flex-shrink: 0; width: 80px; }
+.button-primary:disabled { background: #7fa9a7; color: white; opacity: 1; }
+.websocket-note { background: #fff4d9; border-left: 4px solid var(--yellow); color: #5f4d1b; font-size: 0.88rem; margin-top: 20px; padding: 13px 15px; }
+
+@media (max-width: 900px) {
+  .chat-layout { grid-template-columns: 1fr; }
+  .chat-tabs { grid-template-columns: 1fr 1fr; }
+  .chat-window { min-height: 0; }
+}

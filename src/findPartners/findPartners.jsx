@@ -1,5 +1,6 @@
 import React from 'react';
 import { SessionCard } from '../common/sessionCard';
+import './findPartners.css';
 
 export function FindPartners() {
   return (

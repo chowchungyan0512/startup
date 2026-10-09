@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './sessionCard.css';
 
 export function SessionCard({ title, time, host, status, joined, action }) {
   return (

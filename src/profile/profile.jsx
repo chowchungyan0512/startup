@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../common/profileLayout.css';
+import './profile.css';
 
 export function Profile() {
   return (

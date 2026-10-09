@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SessionCard } from '../common/sessionCard';
+import './home.css';
 
 export function Home() {
   return (
