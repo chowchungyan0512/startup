@@ -5,6 +5,7 @@ import { Header } from './header';
 import { Footer } from './footer';
 import { Home } from './home/home';
 import { Login } from './login/login';
+import { FindPartners } from './findPartners/findPartners';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/find-partners" element={<FindPartners />} />
       </Routes>
       <Footer />
     </BrowserRouter>
