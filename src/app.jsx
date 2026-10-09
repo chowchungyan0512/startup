@@ -23,8 +23,13 @@ export default function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/classmates/jordan-lee" element={<OtherProfile />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>
   );
+}
+
+function NotFound() {
+  return <main>404: Page not found.</main>;
 }
