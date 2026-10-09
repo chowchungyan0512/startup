@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './header.css';
+import profilePlaceholder from './assets/placeholder.png';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ export function Header() {
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen((open) => !open)}
           >
-            <img src="/placeholder.png" alt="Profile picture of Alex Morgan" />
+            <img src={profilePlaceholder} alt="Profile picture of Alex Morgan" />
             <span>Alex Morgan</span>
           </button>
           <div className="user-menu-panel">

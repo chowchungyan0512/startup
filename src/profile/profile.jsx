@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../common/profileLayout.css';
 import './profile.css';
+import profilePlaceholder from '../assets/placeholder.png';
 
 const availabilityDays = [
   { day: 'Mon', evening: true },
@@ -22,7 +23,7 @@ export function Profile() {
 
       <section className="profile-layout" aria-label="Student profile">
         <aside className="profile-summary">
-          <img className="profile-avatar" src="/placeholder.png" alt="Placeholder profile image for Alex Morgan" />
+          <img className="profile-avatar" src={profilePlaceholder} alt="Placeholder profile image for Alex Morgan" />
           <div className="profile-summary-text">
             <h2>Alex Morgan</h2>
             <p>alex.morgan@university.edu</p>

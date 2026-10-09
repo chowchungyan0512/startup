@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import '../common/profileLayout.css';
 import { mockClassmates } from '../data/mockClassmates';
+import profilePlaceholder from '../assets/placeholder.png';
 
 export function OtherProfile() {
   const { username } = useParams();
@@ -15,7 +16,7 @@ export function OtherProfile() {
 
       <section className="profile-layout" aria-label="Classmate profile">
         <aside className="profile-summary">
-          <img className="profile-avatar" src="/placeholder.png" alt={`Placeholder profile image for ${classmate.name}`} />
+          <img className="profile-avatar" src={profilePlaceholder} alt={`Placeholder profile image for ${classmate.name}`} />
           <div className="profile-summary-text">
             <h2>{classmate.name}</h2>
             <p>{classmate.email}</p>
