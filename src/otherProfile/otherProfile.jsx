@@ -35,6 +35,17 @@ const classmates = {
     availability: 'Weekday evenings',
     about: 'I host conversation practice sessions and love meeting at The Commons.',
   },
+  'priya-shah': {
+    name: 'Priya Shah',
+    email: 'priya.shah@university.edu',
+    major: 'Computer Science',
+    year: 'Senior',
+    classes: 'CS 260, Math 112',
+    sharedClass: 'CS 260',
+    style: 'Practice exams',
+    availability: 'Weekday evenings',
+    about: 'I bring practice problems from lecture and like working through them as a group.',
+  },
 };
 
 export function OtherProfile() {

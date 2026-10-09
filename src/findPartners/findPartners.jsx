@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { SessionCard } from '../common/sessionCard';
 
 export function FindPartners() {
   return (
@@ -73,39 +73,27 @@ export function FindPartners() {
           <span className="results-count">3 sessions found</span>
         </div>
         <div className="session-list">
-          <article className="session-card">
-            <div className="session-details">
-              <h3>CS 260 · Web Programming</h3>
-              <p>Today, 6:30 PM · Harold B. Lee Library, Level 3</p>
-              <p className="session-host">Hosted by <Link to="/classmates/jordan-lee">Jordan Lee</Link> <span>· Shares CS 260 with you</span></p>
-            </div>
-            <div className="session-meta">
-              <span className="status">3 / 6 seats</span>
-              <button className="button button-primary" type="button">Join session</button>
-            </div>
-          </article>
-          <article className="session-card">
-            <div className="session-details">
-              <h3>Biology 180 · Exam review</h3>
-              <p>Tomorrow, 4:00 PM · Life Sciences Building, Room 214</p>
-              <p className="session-host">Hosted by <Link to="/classmates/jordan-lee">Maya Patel</Link> <span>· Shares Biology 180 with you</span></p>
-            </div>
-            <div className="session-meta">
-              <span className="status">2 / 4 seats</span>
-              <button className="button button-primary" type="button">Join session</button>
-            </div>
-          </article>
-          <article className="session-card">
-            <div className="session-details">
-              <h3>Spanish 201 · Conversation practice</h3>
-              <p>Thursday, 7:00 PM · The Commons, Table 8</p>
-              <p className="session-host">Hosted by <Link to="/classmates/jordan-lee">Elena Garcia</Link> <span>· Shares Spanish 201 with you</span></p>
-            </div>
-            <div className="session-meta">
-              <span className="status">4 / 8 seats</span>
-              <button className="button button-primary" type="button">Join session</button>
-            </div>
-          </article>
+          <SessionCard
+            title="CS 260 · Web Programming"
+            time="Today, 6:30 PM · Harold B. Lee Library, Level 3"
+            host={{ username: 'jordan-lee', name: 'Jordan Lee', label: 'Hosted by', note: '· Shares CS 260 with you' }}
+            status="3 / 6 seats"
+            action={<button className="button button-primary" type="button">Join session</button>}
+          />
+          <SessionCard
+            title="Biology 180 · Exam review"
+            time="Tomorrow, 4:00 PM · Life Sciences Building, Room 214"
+            host={{ username: 'maya-patel', name: 'Maya Patel', label: 'Hosted by', note: '· Shares Biology 180 with you' }}
+            status="2 / 4 seats"
+            action={<button className="button button-primary" type="button">Join session</button>}
+          />
+          <SessionCard
+            title="Spanish 201 · Conversation practice"
+            time="Thursday, 7:00 PM · The Commons, Table 8"
+            host={{ username: 'elena-garcia', name: 'Elena Garcia', label: 'Hosted by', note: '· Shares Spanish 201 with you' }}
+            status="4 / 8 seats"
+            action={<button className="button button-primary" type="button">Join session</button>}
+          />
         </div>
         <p className="data-note"><strong>Database placeholder:</strong> These session and host records will eventually come from CampusConnect's database.</p>
       </section>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { SessionCard } from '../common/sessionCard';
 
 export function Home() {
   return (
@@ -43,36 +44,24 @@ export function Home() {
           <Link className="button button-light" to="/study-session">Create new</Link>
         </div>
         <div className="session-list">
-          <article className="session-card">
-            <div>
-              <h3>Spanish 201 · Conversation practice</h3>
-              <p>Thursday, 7:00 PM · The Commons, Table 8</p>
-            </div>
-            <div className="session-meta">
-              <span className="status">4 / 8 seats</span>
-              <button className="button button-primary" type="button">Join session</button>
-            </div>
-          </article>
-          <article className="session-card">
-            <div>
-              <h3>Math 112 · Calculus problem set</h3>
-              <p>Friday, 2:00 PM · Talmage Math Sciences, Room 105</p>
-            </div>
-            <div className="session-meta">
-              <span className="status">3 / 5 seats</span>
-              <button className="button button-primary" type="button">Join session</button>
-            </div>
-          </article>
-          <article className="session-card">
-            <div>
-              <h3>Chem 106 · Lab prep</h3>
-              <p>Saturday, 11:00 AM · Benson Building, Room 220</p>
-            </div>
-            <div className="session-meta">
-              <span className="status">1 / 4 seats</span>
-              <button className="button button-primary" type="button">Join session</button>
-            </div>
-          </article>
+          <SessionCard
+            title="Spanish 201 · Conversation practice"
+            time="Thursday, 7:00 PM · The Commons, Table 8"
+            status="4 / 8 seats"
+            action={<button className="button button-primary" type="button">Join session</button>}
+          />
+          <SessionCard
+            title="Math 112 · Calculus problem set"
+            time="Friday, 2:00 PM · Talmage Math Sciences, Room 105"
+            status="3 / 5 seats"
+            action={<button className="button button-primary" type="button">Join session</button>}
+          />
+          <SessionCard
+            title="Chem 106 · Lab prep"
+            time="Saturday, 11:00 AM · Benson Building, Room 220"
+            status="1 / 4 seats"
+            action={<button className="button button-primary" type="button">Join session</button>}
+          />
         </div>
         <p className="data-note"><strong>Database placeholder:</strong> These session cards represent study-session records that will be loaded from the CampusConnect database.</p>
       </section>
@@ -83,22 +72,20 @@ export function Home() {
           <Link className="button button-light" to="/chat">View all chats</Link>
         </div>
         <div className="session-list">
-          <article className="session-card joined-card">
-            <div className="session-details">
-              <h3>CS 260 · Web Programming</h3>
-              <p>Today, 6:30 PM · Harold B. Lee Library, Level 3</p>
-              <p className="session-host"><Link to="/classmates/jordan-lee">Jordan Lee</Link> <span>and 2 other classmates</span></p>
-            </div>
-            <Link className="button button-light" to="/chat">Open chat</Link>
-          </article>
-          <article className="session-card joined-card">
-            <div className="session-details">
-              <h3>Biology 180 · Exam review</h3>
-              <p>Tomorrow, 4:00 PM · Life Sciences Building, Room 214</p>
-              <p className="session-host"><Link to="/classmates/maya-patel">Maya Patel</Link> <span>and 1 other classmate</span></p>
-            </div>
-            <Link className="button button-light" to="/chat">Open chat</Link>
-          </article>
+          <SessionCard
+            title="CS 260 · Web Programming"
+            time="Today, 6:30 PM · Harold B. Lee Library, Level 3"
+            host={{ username: 'jordan-lee', name: 'Jordan Lee', note: 'and 2 other classmates' }}
+            joined
+            action={<Link className="button button-light" to="/chat">Open chat</Link>}
+          />
+          <SessionCard
+            title="Biology 180 · Exam review"
+            time="Tomorrow, 4:00 PM · Life Sciences Building, Room 214"
+            host={{ username: 'maya-patel', name: 'Maya Patel', note: 'and 1 other classmate' }}
+            joined
+            action={<Link className="button button-light" to="/chat">Open chat</Link>}
+          />
         </div>
       </section>
 

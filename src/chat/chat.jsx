@@ -31,7 +31,7 @@ export function Chat() {
               <p>Should we focus on the fetch API and WebSockets tonight?</p>
             </div>
             <div className="chat-message">
-              <span className="chat-author"><Link to="/classmates/jordan-lee">Priya Shah</Link> · 8 min ago</span>
+              <span className="chat-author"><Link to="/classmates/priya-shah">Priya Shah</Link> · 8 min ago</span>
               <p>Yes, I can bring the practice problems from lecture. I found a good table on level 3.</p>
             </div>
             <div className="chat-message chat-message-you">
