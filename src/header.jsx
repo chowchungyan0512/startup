@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './header.css';
 
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <header className="site-header">
       <NavLink className="brand" to="/">
@@ -13,14 +15,20 @@ export function Header() {
         <NavLink to="/find-partners">Find partners</NavLink>
         <NavLink to="/chat">Chat</NavLink>
         <NavLink to="/study-session">Create a session</NavLink>
-        <div className="user-menu">
-          <button className="user-menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+        <div className={`user-menu${isMenuOpen ? ' is-open' : ''}`}>
+          <button
+            className="user-menu-trigger"
+            type="button"
+            aria-haspopup="true"
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
             <img src="/placeholder.png" alt="Profile picture of Alex Morgan" />
             <span>Alex Morgan</span>
           </button>
           <div className="user-menu-panel">
-            <NavLink to="/profile">My profile</NavLink>
-            <NavLink to="/login">Log out</NavLink>
+            <NavLink to="/profile" onClick={() => setIsMenuOpen(false)}>My profile</NavLink>
+            <NavLink to="/login" onClick={() => setIsMenuOpen(false)}>Log out</NavLink>
           </div>
         </div>
       </nav>
