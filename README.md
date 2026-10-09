@@ -16,7 +16,7 @@ CampusConnect is a web app that lets college students connect with study partner
 
 ### Design
 
-![Design image](CampusConnect.jpg)
+![Design image](public/CampusConnect.jpg)
 
 <!-- ```mermaid
 sequenceDiagram
