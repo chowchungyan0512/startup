@@ -95,7 +95,7 @@ export function Home() {
             <div className="session-details">
               <h3>Biology 180 · Exam review</h3>
               <p>Tomorrow, 4:00 PM · Life Sciences Building, Room 214</p>
-              <p className="session-host"><Link to="/classmates/jordan-lee">Maya Patel</Link> <span>and 1 other classmate</span></p>
+              <p className="session-host"><Link to="/classmates/maya-patel">Maya Patel</Link> <span>and 1 other classmate</span></p>
             </div>
             <Link className="button button-light" to="/chat">Open chat</Link>
           </article>

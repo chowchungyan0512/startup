@@ -1,20 +1,59 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+
+const classmates = {
+  'jordan-lee': {
+    name: 'Jordan Lee',
+    email: 'jordan.lee@university.edu',
+    major: 'Computer Science',
+    year: 'Senior',
+    classes: 'CS 260, Math 112, Chem 106',
+    sharedClass: 'CS 260',
+    style: 'Collaborative problem solving',
+    availability: 'Weekday evenings',
+    about: 'I like hosting review sessions before exams and going through practice problems as a group.',
+  },
+  'maya-patel': {
+    name: 'Maya Patel',
+    email: 'maya.patel@university.edu',
+    major: 'Biology',
+    year: 'Sophomore',
+    classes: 'Biology 180, Chem 106, Math 112',
+    sharedClass: 'Biology 180',
+    style: 'Flashcards and discussion',
+    availability: 'Weekday afternoons',
+    about: 'I am prepping for exams and like to make review sheets the group can share.',
+  },
+  'elena-garcia': {
+    name: 'Elena Garcia',
+    email: 'elena.garcia@university.edu',
+    major: 'Spanish',
+    year: 'Junior',
+    classes: 'Spanish 201, CS 260',
+    sharedClass: 'Spanish 201',
+    style: 'Discussion',
+    availability: 'Weekday evenings',
+    about: 'I host conversation practice sessions and love meeting at The Commons.',
+  },
+};
 
 export function OtherProfile() {
+  const { username } = useParams();
+  const classmate = classmates[username] ?? classmates['jordan-lee'];
+
   return (
     <main className="form-page">
       <p className="eyebrow">Classmate profile</p>
-      <h1>Jordan Lee</h1>
-      <p className="muted">Shares CS 260 with you and hosts study sessions on campus.</p>
+      <h1>{classmate.name}</h1>
+      <p className="muted">Shares {classmate.sharedClass} with you and hosts study sessions on campus.</p>
 
       <section className="profile-layout" aria-label="Classmate profile">
         <aside className="profile-summary">
-          <img className="profile-avatar" src="/placeholder.png" alt="Placeholder profile image for Jordan Lee" />
+          <img className="profile-avatar" src="/placeholder.png" alt={`Placeholder profile image for ${classmate.name}`} />
           <div className="profile-summary-text">
-            <h2>Jordan Lee</h2>
-            <p>jordan.lee@university.edu</p>
-            <p>Computer Science · Senior</p>
+            <h2>{classmate.name}</h2>
+            <p>{classmate.email}</p>
+            <p>{classmate.major} · {classmate.year}</p>
           </div>
         </aside>
 
@@ -23,27 +62,27 @@ export function OtherProfile() {
           <div className="form-grid">
             <div className="form-row">
               <label>Major</label>
-              <p>Computer Science</p>
+              <p>{classmate.major}</p>
             </div>
             <div className="form-row">
               <label>Academic year</label>
-              <p>Senior</p>
+              <p>{classmate.year}</p>
             </div>
             <div className="form-row full-width">
               <label>Current classes</label>
-              <p>CS 260, Math 112, Chem 106</p>
+              <p>{classmate.classes}</p>
             </div>
             <div className="form-row">
               <label>Preferred study style</label>
-              <p>Collaborative problem solving</p>
+              <p>{classmate.style}</p>
             </div>
             <div className="form-row">
               <label>Typical availability</label>
-              <p>Weekday evenings</p>
+              <p>{classmate.availability}</p>
             </div>
             <div className="form-row full-width">
               <label>About</label>
-              <p>I like hosting review sessions before exams and going through practice problems as a group.</p>
+              <p>{classmate.about}</p>
             </div>
           </div>
           <div className="form-actions">
