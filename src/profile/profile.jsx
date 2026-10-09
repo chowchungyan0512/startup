@@ -3,6 +3,16 @@ import { Link } from 'react-router-dom';
 import '../common/profileLayout.css';
 import './profile.css';
 
+const availabilityDays = [
+  { day: 'Mon', evening: true },
+  { day: 'Tue', evening: true },
+  { day: 'Wed', evening: true },
+  { day: 'Thu', evening: true },
+  { day: 'Fri', evening: true },
+  { day: 'Sat', evening: false },
+  { day: 'Sun', evening: false },
+];
+
 export function Profile() {
   return (
     <main className="form-page">
@@ -72,15 +82,7 @@ export function Profile() {
                       </tr>
                     </thead>
                     <tbody>
-                      {[
-                        { day: 'Mon', evening: true },
-                        { day: 'Tue', evening: true },
-                        { day: 'Wed', evening: true },
-                        { day: 'Thu', evening: true },
-                        { day: 'Fri', evening: true },
-                        { day: 'Sat', evening: false },
-                        { day: 'Sun', evening: false },
-                      ].map(({ day, evening }) => (
+                      {availabilityDays.map(({ day, evening }) => (
                         <tr key={day}>
                           <th scope="row">{day}</th>
                           <td><input type="checkbox" name="availability" aria-label={`${day} morning`} /></td>
