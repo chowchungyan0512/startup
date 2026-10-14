@@ -1,15 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SessionCard } from '../common/sessionCard';
+import { useAuth } from '../auth/AuthContext';
 import './home.css';
 
 export function Home() {
+  const { user } = useAuth();
+  const [sessions, setSessions] = useState([]);
+  const [mySessions, setMySessions] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetch('/api/notifications')
+      .then((response) => (response.ok ? response.json() : []))
+      .then(setNotifications);
+  }, []);
+
+  async function loadSessions() {
+    try {
+      const [allRes, mineRes] = await Promise.all([
+        fetch('/api/sessions'),
+        fetch('/api/sessions/mine'),
+      ]);
+      if (!allRes.ok || !mineRes.ok) throw new Error('Could not load sessions.');
+      const [all, mine] = await Promise.all([allRes.json(), mineRes.json()]);
+      setSessions(all);
+      setMySessions(mine);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  useEffect(() => {
+    loadSessions();
+  }, []);
+
+  async function handleJoin(sessionId) {
+    const response = await fetch(`/api/sessions/${sessionId}/join`, { method: 'POST' });
+    if (response.ok) {
+      loadSessions();
+    }
+  }
+
+  const joinedIds = new Set(mySessions.map((session) => session.id));
+  const openSessions = sessions.filter((session) => !joinedIds.has(session.id));
+
   return (
     <main>
       <section className="dashboard-hero" aria-labelledby="welcome-title">
         <div>
-          <p className="eyebrow">Tuesday, September 16</p>
-          <h1 id="welcome-title">Good morning, Alex.</h1>
+          <p className="eyebrow">Your dashboard</p>
+          <h1 id="welcome-title">Good morning, {user?.name ?? 'there'}.</h1>
           <p>Your next great study session is closer than you think.</p>
         </div>
       </section>
@@ -44,27 +86,24 @@ export function Home() {
           <h2 id="sessions-title">Open sessions near you</h2>
           <Link className="button button-light" to="/study-session">Create new</Link>
         </div>
+        {error && <p className="data-note">{error}</p>}
+        {!error && openSessions.length === 0 && <p className="muted">No open sessions yet. Be the first to create one.</p>}
         <div className="session-list">
-          <SessionCard
-            title="Spanish 201 · Conversation practice"
-            time="Thursday, 7:00 PM · The Commons, Table 8"
-            status="4 / 8 seats"
-            action={<button className="button button-primary" type="button">Join session</button>}
-          />
-          <SessionCard
-            title="Math 112 · Calculus problem set"
-            time="Friday, 2:00 PM · Talmage Math Sciences, Room 105"
-            status="3 / 5 seats"
-            action={<button className="button button-primary" type="button">Join session</button>}
-          />
-          <SessionCard
-            title="Chem 106 · Lab prep"
-            time="Saturday, 11:00 AM · Benson Building, Room 220"
-            status="1 / 4 seats"
-            action={<button className="button button-primary" type="button">Join session</button>}
-          />
+          {openSessions.map((session) => (
+            <SessionCard
+              key={session.id}
+              title={session.course}
+              time={`${session.date} · ${session.time} · ${session.location}`}
+              status={`${session.participants.length} / ${session.capacity} seats`}
+              action={
+                <button className="button button-primary" type="button" onClick={() => handleJoin(session.id)}>
+                  Join session
+                </button>
+              }
+            />
+          ))}
         </div>
-        <p className="data-note"><strong>Database placeholder:</strong> These session cards represent study-session records that will be loaded from the CampusConnect database.</p>
+        <p className="data-note"><strong>Live data:</strong> These sessions are loaded from the CampusConnect backend at /api/sessions.</p>
       </section>
 
       <section aria-labelledby="joined-title">
@@ -72,21 +111,18 @@ export function Home() {
           <h2 id="joined-title">My sessions</h2>
           <Link className="button button-light" to="/chat">View all chats</Link>
         </div>
+        {mySessions.length === 0 && <p className="muted">You haven't joined any sessions yet.</p>}
         <div className="session-list">
-          <SessionCard
-            title="CS 260 · Web Programming"
-            time="Today, 6:30 PM · Harold B. Lee Library, Level 3"
-            host={{ username: 'jordan-lee', name: 'Jordan Lee', note: 'and 2 other classmates' }}
-            joined
-            action={<Link className="button button-light" to="/chat">Open chat</Link>}
-          />
-          <SessionCard
-            title="Biology 180 · Exam review"
-            time="Tomorrow, 4:00 PM · Life Sciences Building, Room 214"
-            host={{ username: 'maya-patel', name: 'Maya Patel', note: 'and 1 other classmate' }}
-            joined
-            action={<Link className="button button-light" to="/chat">Open chat</Link>}
-          />
+          {mySessions.map((session) => (
+            <SessionCard
+              key={session.id}
+              title={session.course}
+              time={`${session.date} · ${session.time} · ${session.location}`}
+              host={{ username: session.host.username, name: session.host.name, note: '· hosting this session' }}
+              joined
+              action={<Link className="button button-light" to="/chat">Open chat</Link>}
+            />
+          ))}
         </div>
       </section>
 
@@ -95,29 +131,17 @@ export function Home() {
           <h2 id="notifications-title">Recent notifications</h2>
         </div>
         <div className="notification-list">
-          <article className="notification-item">
-            <span className="notification-dot" aria-hidden="true"></span>
-            <div>
-              <p><strong>Jordan Lee</strong> joined your CS 260 · Web Programming session.</p>
-              <p className="notification-time">2 minutes ago</p>
-            </div>
-          </article>
-          <article className="notification-item">
-            <span className="notification-dot" aria-hidden="true"></span>
-            <div>
-              <p><strong>Maya Patel</strong> sent a message in Biology 180 · Exam review.</p>
-              <p className="notification-time">18 minutes ago</p>
-            </div>
-          </article>
-          <article className="notification-item">
-            <span className="notification-dot" aria-hidden="true"></span>
-            <div>
-              <p>Your <strong>Spanish 201 · Conversation practice</strong> session starts in 2 days.</p>
-              <p className="notification-time">1 hour ago</p>
-            </div>
-          </article>
+          {notifications.map((notification) => (
+            <article className="notification-item" key={notification.id}>
+              <span className="notification-dot" aria-hidden="true"></span>
+              <div>
+                <p>{notification.message}</p>
+                <p className="notification-time">{notification.minutesAgo} minutes ago</p>
+              </div>
+            </article>
+          ))}
         </div>
-        <p className="data-note"><strong>Real-time placeholder:</strong> These notifications will update live over a WebSocket connection once the service layer is built.</p>
+        <p className="data-note"><strong>Live data:</strong> Loaded from /api/notifications; a future deliverable pushes these over WebSocket instead.</p>
       </section>
     </main>
   );

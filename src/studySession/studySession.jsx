@@ -1,15 +1,50 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './studySession.css';
 
 export function StudySession() {
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setError('');
+    setIsSubmitting(true);
+
+    const form = new FormData(event.target);
+    const body = {
+      course: form.get('course'),
+      date: form.get('date'),
+      time: form.get('time'),
+      location: form.get('location'),
+      capacity: form.get('capacity'),
+      details: form.get('details'),
+    };
+
+    try {
+      const response = await fetch('/api/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Could not create the session.');
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <main className="form-page">
       <p className="eyebrow">Bring people together</p>
       <h1>Create a study session.</h1>
       <p className="muted">Give your classmates enough detail to know if this session is right for them.</p>
 
-      <form className="session-form">
+      <form className="session-form" onSubmit={handleSubmit}>
         <div className="form-grid">
           <div className="form-row full-width">
             <label htmlFor="course">Course or subject</label>
@@ -41,9 +76,12 @@ export function StudySession() {
           <label htmlFor="chat">Create a group chat for this session</label>
         </div>
         <div className="service-note"><strong>Third-party service placeholder:</strong> A campus map API will validate this location and show directions to participants.</div>
+        {error && <p className="form-note" style={{ color: '#b34a37' }}>{error}</p>}
         <div className="form-actions">
           <Link className="button button-light" to="/">Cancel</Link>
-          <button className="button button-primary" type="submit">Publish</button>
+          <button className="button button-primary" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Publishing...' : 'Publish'}
+          </button>
         </div>
       </form>
     </main>
