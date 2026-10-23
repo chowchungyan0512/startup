@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './login.css';
 import { useAuth } from '../auth/AuthContext';
 
@@ -12,6 +12,8 @@ export function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login, register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from?.pathname ?? '/';
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -23,7 +25,7 @@ export function Login() {
       } else {
         await register(email, password, name);
       }
-      navigate('/');
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {
