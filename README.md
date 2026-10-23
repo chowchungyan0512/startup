@@ -109,9 +109,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon React Part 2 deployed to [simon.campusconnect.click](https://simon.campusconnect.click), with a footer link back to this startup repository, Git commits)
+- [x] **All functionality implemented or mocked out** - Added `src/mock/store.js`, a localStorage-backed stand-in for the future backend: registration/login/logout, creating and joining study sessions, updating a profile, and a simulated notification feed, all mirroring the shape a real `fetch`-based service will have. Registering, creating/joining sessions, searching on Find Partners, sending chat messages, switching chat tabs, and saving a profile are all fully interactive now, with data persisting in localStorage across reloads.
+- [x] **Hooks** - `useState` drives every interactive view (auth state in `AuthContext`, session lists and join/search filters on `Home`/`FindPartners`, chat messages and the active tab in `Chat`, form fields in `Profile`). `useEffect` runs the simulated live-notification feed on `Home` and the simulated incoming chat message on `Chat`, both using `setInterval` with a cleanup function to mock what a later WebSocket connection will push.
 
 ## 🚀 Service deliverable
 

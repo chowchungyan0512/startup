@@ -34,3 +34,12 @@ Ported the Simon CSS example over to React with Vite and React Router, then depl
 - `class` becomes `className` in JSX since `class` is a reserved JavaScript keyword.
 - Static assets referenced by URL (like `placeholder.jpg`) need to live in `public/` and be referenced from the site root (`/placeholder.jpg`), since Vite doesn't process that folder's contents at all.
 - The production deploy is different from a static site: you have to `npm run build` first (which bundles everything into a `dist/` folder) and deploy *that*, not the raw source files.
+
+## React Part 2: Reactivity
+
+Reviewed and deployed the course's Simon React example (with reactivity already built in) to simon.campusconnect.click, replacing the Simon routing-only version. Then made my own startup fully interactive:
+
+- Since there's no backend yet, I wrote one small module (`src/mock/store.js`) that wraps `localStorage` behind functions shaped like a future API (`loginUser`, `addSession`, `joinSession`, `updateCurrentUser`, ...). Every component calls these functions instead of touching `localStorage` directly, so swapping in real `fetch` calls for the Service deliverable should mean changing this one file plus call sites, not the component logic.
+- `useState` lives in the component that owns that piece of UI state — auth state in a context so `Header`/`Home`/`Profile` can all read who's logged in, search/filter state local to `FindPartners`, chat messages and the active tab local to `Chat`.
+- `useEffect` + `setInterval` is a good stand-in for "data the server will eventually push": I used it for a simulated notification feed on the dashboard and a simulated incoming chat message, both returning a cleanup function that calls `clearInterval` so the interval doesn't keep running after the component unmounts.
+- Learned the hard way that `await someSyncFunction()` inside a `try/catch` still works for catching thrown errors — so a mock function doesn't need to be artificially wrapped in a Promise just to match the shape of code that will later call a real async API.
