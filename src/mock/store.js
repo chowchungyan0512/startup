@@ -11,6 +11,7 @@ const USERS_KEY = 'campusconnect.users';
 const CURRENT_USER_KEY = 'campusconnect.currentUser';
 const SESSIONS_KEY = 'campusconnect.sessions';
 const NOTIFICATIONS_KEY = 'campusconnect.notifications';
+const CONVERSATIONS_KEY = 'campusconnect.conversations';
 
 function readJSON(key, fallback) {
   try {
@@ -170,24 +171,61 @@ function saveSessions(sessions) {
   return sessions;
 }
 
+// Maps the free-text fields a user types on the Create Session form to the
+// filter keys FindPartners searches on, so a newly created session actually
+// shows up when someone filters by location, date, availability, or size.
+function deriveLocationKey(location) {
+  const text = location.toLowerCase();
+  if (text.includes('librar')) return 'library';
+  if (text.includes('life science')) return 'life-sciences';
+  if (text.includes('commons')) return 'commons';
+  return '';
+}
+
+function deriveDateKey(dateString) {
+  if (!dateString) return '';
+  const date = new Date(`${dateString}T00:00:00`);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  if (date.getTime() === today.getTime()) return 'today';
+  if (date.getTime() === tomorrow.getTime()) return 'tomorrow';
+  if (date.toLocaleDateString('en-US', { weekday: 'long' }) === 'Thursday') return 'thursday';
+  return '';
+}
+
+function deriveAvailability(timeString) {
+  const hour = Number((timeString || '').split(':')[0]);
+  return hour >= 17 ? 'evening' : 'afternoon';
+}
+
+function deriveSize(capacity) {
+  if (capacity <= 4) return 'small';
+  if (capacity <= 6) return 'medium';
+  return 'large';
+}
+
 export function addSession({ course, date, time, location, capacity, details }, host) {
   const sessions = getSessions();
+  const sessionCapacity = Number(capacity) || 4;
   const session = {
     id: nextSessionId++,
     course,
     date,
     time,
     location,
-    capacity: Number(capacity) || 4,
+    capacity: sessionCapacity,
     details: details || '',
     participants: [],
     host: { username: host.username, name: host.name },
     subject: course.toLowerCase(),
-    locationKey: '',
-    dateKey: '',
+    locationKey: deriveLocationKey(location),
+    dateKey: deriveDateKey(date),
     style: '',
-    availability: '',
-    size: '',
+    availability: deriveAvailability(time),
+    size: deriveSize(sessionCapacity),
   };
   return saveSessions([...sessions, session]);
 }
@@ -233,6 +271,66 @@ export function startNotificationFeed(onUpdate) {
     saveNotifications(updated);
     onUpdate(updated);
   }, 15000);
+
+  return () => clearInterval(interval);
+}
+
+// ---- chat ----
+// Conversations persist the same way sessions do, so a message survives a
+// reload instead of resetting to the seed data.
+
+const seedConversations = {
+  cs260: {
+    title: 'CS 260 · Web Programming',
+    time: 'Today, 6:30 PM · Harold B. Lee Library, Level 3',
+    members: '3 members online',
+    messages: [
+      { id: 1, author: 'Jordan Lee', username: 'jordan-lee', text: 'Should we focus on the fetch API and WebSockets tonight?', you: false },
+      { id: 2, author: 'Priya Shah', username: 'priya-shah', text: 'Yes, I can bring the practice problems from lecture.', you: false },
+      { id: 3, author: 'You', text: 'Perfect. I will review the service endpoints before we meet.', you: true },
+    ],
+  },
+  biology180: {
+    title: 'Biology 180 · Exam review',
+    time: 'Tomorrow, 4:00 PM · Life Sciences Building, Room 214',
+    members: '2 members online',
+    messages: [
+      { id: 1, author: 'Maya Patel', username: 'maya-patel', text: 'I made a review list for cell structure and metabolism.', you: false },
+    ],
+  },
+};
+
+export function getConversations() {
+  return readJSON(CONVERSATIONS_KEY, seedConversations);
+}
+
+function saveConversations(conversations) {
+  writeJSON(CONVERSATIONS_KEY, conversations);
+  return conversations;
+}
+
+export function sendMessage(conversationId, message) {
+  const conversations = getConversations();
+  const conversation = conversations[conversationId];
+  const updated = {
+    ...conversations,
+    [conversationId]: { ...conversation, messages: [...conversation.messages, { id: Date.now(), ...message }] },
+  };
+  return saveConversations(updated);
+}
+
+const simulatedReplies = [
+  { username: 'priya-shah', author: 'Priya Shah', text: "I'll grab a table near the entrance." },
+  { username: 'jordan-lee', author: 'Jordan Lee', text: 'Running a few minutes late, start without me.' },
+  { username: 'maya-patel', author: 'Maya Patel', text: 'Just posted the slides to the group folder.' },
+];
+
+export function startChatFeed(onUpdate) {
+  const interval = setInterval(() => {
+    const reply = simulatedReplies[Math.floor(Math.random() * simulatedReplies.length)];
+    const updated = sendMessage('cs260', { ...reply, you: false });
+    onUpdate(updated);
+  }, 20000);
 
   return () => clearInterval(interval);
 }
