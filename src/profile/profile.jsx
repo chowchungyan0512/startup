@@ -6,15 +6,13 @@ import profilePlaceholder from '../assets/placeholder.png';
 import { useAuth } from '../auth/AuthContext';
 import * as store from '../mock/store';
 
-const availabilityDays = [
-  { day: 'Mon', evening: true },
-  { day: 'Tue', evening: true },
-  { day: 'Wed', evening: true },
-  { day: 'Thu', evening: true },
-  { day: 'Fri', evening: true },
-  { day: 'Sat', evening: false },
-  { day: 'Sun', evening: false },
-];
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const timesOfDay = ['morning', 'afternoon', 'evening'];
+
+const defaultAvailability = days.reduce((acc, day) => {
+  acc[day] = { morning: false, afternoon: false, evening: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(day) };
+  return acc;
+}, {});
 
 export function Profile() {
   const { user, setUser } = useAuth();
@@ -23,11 +21,19 @@ export function Profile() {
   const [classes, setClasses] = useState(user?.classes ?? '');
   const [studyStyle, setStudyStyle] = useState(user?.studyStyle ?? 'Collaborative problem solving');
   const [bio, setBio] = useState(user?.bio ?? '');
+  const [availability, setAvailability] = useState(user?.availability ?? defaultAvailability);
   const [status, setStatus] = useState('');
+
+  function toggleAvailability(day, timeOfDay) {
+    setAvailability((prev) => ({
+      ...prev,
+      [day]: { ...prev[day], [timeOfDay]: !prev[day][timeOfDay] },
+    }));
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
-    const updated = store.updateCurrentUser({ major, year, classes, studyStyle, bio });
+    const updated = store.updateCurrentUser({ major, year, classes, studyStyle, bio, availability });
     setUser(updated);
     setStatus('Saved!');
   }
@@ -92,12 +98,19 @@ export function Profile() {
                       </tr>
                     </thead>
                     <tbody>
-                      {availabilityDays.map(({ day, evening }) => (
+                      {days.map((day) => (
                         <tr key={day}>
                           <th scope="row">{day}</th>
-                          <td><input type="checkbox" name="availability" aria-label={`${day} morning`} /></td>
-                          <td><input type="checkbox" name="availability" aria-label={`${day} afternoon`} /></td>
-                          <td><input type="checkbox" name="availability" aria-label={`${day} evening`} defaultChecked={evening} /></td>
+                          {timesOfDay.map((timeOfDay) => (
+                            <td key={timeOfDay}>
+                              <input
+                                type="checkbox"
+                                aria-label={`${day} ${timeOfDay}`}
+                                checked={availability[day][timeOfDay]}
+                                onChange={() => toggleAvailability(day, timeOfDay)}
+                              />
+                            </td>
+                          ))}
                         </tr>
                       ))}
                     </tbody>
