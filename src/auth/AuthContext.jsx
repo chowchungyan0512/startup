@@ -1,37 +1,30 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import * as store from '../mock/store';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(() => store.getCurrentUser());
 
-  useEffect(() => {
-    fetch('/api/auth/me')
-      .then((response) => (response.ok ? response.json() : null))
-      .then(setUser)
-      .finally(() => setLoading(false));
-  }, []);
-
-  async function login(email, password) {
-    const response = await apiRequest('/api/auth/login', { email, password });
-    setUser(response);
-    return response;
+  function login(email, password) {
+    const loggedInUser = store.loginUser(email, password);
+    setUser(loggedInUser);
+    return loggedInUser;
   }
 
-  async function register(email, password, name) {
-    const response = await apiRequest('/api/auth/register', { email, password, name });
-    setUser(response);
-    return response;
+  function register(email, password, name) {
+    const newUser = store.registerUser({ email, password, name });
+    setUser(newUser);
+    return newUser;
   }
 
-  async function logout() {
-    await fetch('/api/auth/logout', { method: 'POST' });
+  function logout() {
+    store.logoutUser();
     setUser(null);
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, setUser, loading: false, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
@@ -39,17 +32,4 @@ export function AuthProvider({ children }) {
 
 export function useAuth() {
   return useContext(AuthContext);
-}
-
-async function apiRequest(url, body) {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.error || 'Something went wrong.');
-  }
-  return data;
 }
