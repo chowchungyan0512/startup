@@ -2,49 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SessionCard } from '../common/sessionCard';
 import { useAuth } from '../auth/AuthContext';
+import * as store from '../mock/store';
 import './home.css';
 
 export function Home() {
   const { user } = useAuth();
-  const [sessions, setSessions] = useState([]);
-  const [mySessions, setMySessions] = useState([]);
-  const [notifications, setNotifications] = useState([]);
-  const [error, setError] = useState('');
+  const [sessions, setSessions] = useState(() => store.getSessions());
+  const [notifications, setNotifications] = useState(() => store.getNotifications());
+  const [joinError, setJoinError] = useState('');
 
+  // Simulates notifications that will eventually arrive over WebSocket.
   useEffect(() => {
-    fetch('/api/notifications')
-      .then((response) => (response.ok ? response.json() : []))
-      .then(setNotifications);
+    return store.startNotificationFeed(setNotifications);
   }, []);
 
-  async function loadSessions() {
+  function handleJoin(sessionId) {
     try {
-      const [allRes, mineRes] = await Promise.all([
-        fetch('/api/sessions'),
-        fetch('/api/sessions/mine'),
-      ]);
-      if (!allRes.ok || !mineRes.ok) throw new Error('Could not load sessions.');
-      const [all, mine] = await Promise.all([allRes.json(), mineRes.json()]);
-      setSessions(all);
-      setMySessions(mine);
+      setJoinError('');
+      setSessions(store.joinSession(sessionId, user.id));
     } catch (err) {
-      setError(err.message);
+      setJoinError(err.message);
     }
   }
 
-  useEffect(() => {
-    loadSessions();
-  }, []);
-
-  async function handleJoin(sessionId) {
-    const response = await fetch(`/api/sessions/${sessionId}/join`, { method: 'POST' });
-    if (response.ok) {
-      loadSessions();
-    }
-  }
-
-  const joinedIds = new Set(mySessions.map((session) => session.id));
-  const openSessions = sessions.filter((session) => !joinedIds.has(session.id));
+  const mySessions = sessions.filter((session) => session.participants.includes(user.id));
+  const openSessions = sessions.filter((session) => !session.participants.includes(user.id));
 
   return (
     <main>
@@ -86,8 +68,8 @@ export function Home() {
           <h2 id="sessions-title">Open sessions near you</h2>
           <Link className="button button-light" to="/study-session">Create new</Link>
         </div>
-        {error && <p className="data-note">{error}</p>}
-        {!error && openSessions.length === 0 && <p className="muted">No open sessions yet. Be the first to create one.</p>}
+        {joinError && <p className="data-note">{joinError}</p>}
+        {openSessions.length === 0 && <p className="muted">No open sessions yet. Be the first to create one.</p>}
         <div className="session-list">
           {openSessions.map((session) => (
             <SessionCard
@@ -103,7 +85,7 @@ export function Home() {
             />
           ))}
         </div>
-        <p className="data-note"><strong>Live data:</strong> These sessions are loaded from the CampusConnect backend at /api/sessions.</p>
+        <p className="data-note"><strong>Mocked data:</strong> Sessions are stored in localStorage until the Service deliverable adds a real backend.</p>
       </section>
 
       <section aria-labelledby="joined-title">
@@ -136,12 +118,12 @@ export function Home() {
               <span className="notification-dot" aria-hidden="true"></span>
               <div>
                 <p>{notification.message}</p>
-                <p className="notification-time">{notification.minutesAgo} minutes ago</p>
+                <p className="notification-time">{notification.minutesAgo === 0 ? 'Just now' : `${notification.minutesAgo} minutes ago`}</p>
               </div>
             </article>
           ))}
         </div>
-        <p className="data-note"><strong>Live data:</strong> Loaded from /api/notifications; a future deliverable pushes these over WebSocket instead.</p>
+        <p className="data-note"><strong>WebSocket placeholder:</strong> New notifications are simulated here with setInterval until a real WebSocket connection replaces it.</p>
       </section>
     </main>
   );
