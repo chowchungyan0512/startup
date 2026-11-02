@@ -117,22 +117,22 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
-- [ ] **Uses BCrypt to hash passwords** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (GitHub link, Git commits)
+- [x] **Node.js/Express HTTP service** - Added `service/server.js`, an Express app with JSON body parsing and cookie parsing middleware.
+- [x] **Static middleware for frontend** - `express.static(dist)` with a catch-all route serves the built React app from the same service in production.
+- [x] **Calls to third party endpoints** - `GET /api/study-break` in `service/routes/misc.js` calls the public icanhazdadjoke.com API server-side and returns the result.
+- [x] **Backend service endpoints** - `service/routes/auth.js`, `sessions.js`, and `profile.js` provide registration/login/logout, study-session search/create/join, and profile read/update plus a public classmate lookup.
+- [ ] **Frontend calls service endpoints** - Not yet for this submission: the React Part 2 deliverable's instructions call for mocking functionality instead, so `src/mock/store.js` (localStorage) is what the deployed frontend actually talks to right now. The real service exists and is fully testable with curl/Postman, and wiring the frontend to it is the next step.
+- [x] **Supports registration, login, logout, and restricted endpoint** - `middleware/auth.js`'s `requireAuth` protects endpoints like `GET /api/auth/me`, `PUT /api/profile`, and session create/join behind a valid session cookie.
+- [x] **Uses BCrypt to hash passwords** - `bcryptjs` hashes passwords on register and verifies them on login in `service/routes/auth.js`.
 
 ## 🚀 DB deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Service deliverable backend built, GitHub link, Git commits)
+- [x] **Stores data in MongoDB** - Set up a free MongoDB Atlas cluster and added `service/database.js` (connects via `MongoClient`, pings on startup) plus a `service/dbConfig.json` (gitignored, never committed) holding the connection credentials. `service/db.js` now reads/writes `users` and `sessions` collections instead of in-memory arrays, using `insertOne`, `find`, `findOne`, `updateOne`, and `$addToSet` for joining a session.
+- [x] **Stores credentials in MongoDB** - Registered users' bcrypt password hashes are stored in the `users` collection in Atlas, not in memory. Verified end-to-end with curl: register, login (including a wrong-password 401), update profile, and logout, then restarted the service and confirmed the data (including a session's joined participant) was still there, proving it's persisted in MongoDB rather than reset on restart.
 
 ## 🚀 WebSocket deliverable
 

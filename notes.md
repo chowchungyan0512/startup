@@ -43,3 +43,13 @@ Reviewed and deployed the course's Simon React example (with reactivity already 
 - `useState` lives in the component that owns that piece of UI state — auth state in a context so `Header`/`Home`/`Profile` can all read who's logged in, search/filter state local to `FindPartners`, chat messages and the active tab local to `Chat`.
 - `useEffect` + `setInterval` is a good stand-in for "data the server will eventually push": I used it for a simulated notification feed on the dashboard and a simulated incoming chat message, both returning a cleanup function that calls `clearInterval` so the interval doesn't keep running after the component unmounts.
 - Learned the hard way that `await someSyncFunction()` inside a `try/catch` still works for catching thrown errors — so a mock function doesn't need to be artificially wrapped in a Promise just to match the shape of code that will later call a real async API.
+
+## DB
+
+Set up a free MongoDB Atlas cluster and switched `service/db.js` from in-memory arrays to real collection calls. Things I learned:
+
+- Atlas never shows you a database user's password again after you set it — only "Edit Password" to generate a new one. If you forget it, there's no "forgot password" recovery, you just reset it.
+- The `mongodb` driver's `insertOne(doc)` mutates `doc` in place by adding `_id` to it. I didn't realize this at first and ended up with a stray `_id` field leaking into my API responses alongside the `id` field I was already building — fixed by inserting a spread copy (`insertOne({ ...doc })`) and keeping the original clean for the response.
+- `dbConfig.json` holds the real hostname/username/password and goes in `.gitignore` immediately, before even writing the connection code — easy to forget the order and risk committing it once, which is enough.
+- Verified it was actually working (not just "no errors") by restarting the whole service and confirming a previously created session's joined participant was still there — in-memory data would have reset to empty on restart, so this is proof it's really in Atlas.
+- A session document stores its host as a plain embedded object (id/username/name/etc, via the same `toPublicUser` helper used elsewhere) rather than the full user record, so a bcrypt hash never ends up duplicated into every session a user creates.
