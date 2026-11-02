@@ -7,10 +7,13 @@ import { authRouter } from './routes/auth.js';
 import { sessionsRouter } from './routes/sessions.js';
 import { profileRouter } from './routes/profile.js';
 import { miscRouter } from './routes/misc.js';
+import { connectToDatabase } from './database.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = process.argv[2] || process.env.PORT || 3000;
+
+await connectToDatabase();
 
 app.use(express.json());
 app.use(cookieParser());

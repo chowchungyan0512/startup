@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
-import { authTokens, createUser, findUserByEmail, toPublicUser } from '../db.js';
+import { createUser, findUserByEmail, toPublicUser } from '../db.js';
+import { authTokens } from '../sessionTokens.js';
 import { requireAuth } from '../middleware/auth.js';
 
 export const authRouter = Router();
@@ -17,13 +18,13 @@ authRouter.post('/register', async (req, res) => {
   if (!email || !password || !name) {
     return res.status(400).json({ error: 'email, password, and name are required.' });
   }
-  if (findUserByEmail(email)) {
+  if (await findUserByEmail(email)) {
     return res.status(409).json({ error: 'An account with that email already exists.' });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
   const username = email.split('@')[0].toLowerCase();
-  const user = createUser({ email, passwordHash, name, username, major: '', year: '', classes: '' });
+  const user = await createUser({ email, passwordHash, name, username, major: '', year: '', classes: '' });
 
   startSession(res, user.id);
   res.status(201).json(toPublicUser(user));
@@ -31,7 +32,7 @@ authRouter.post('/register', async (req, res) => {
 
 authRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  const user = findUserByEmail(email || '');
+  const user = await findUserByEmail(email || '');
   const passwordMatches = user && (await bcrypt.compare(password || '', user.passwordHash));
 
   if (!passwordMatches) {
