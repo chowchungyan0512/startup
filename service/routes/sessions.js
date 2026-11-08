@@ -30,19 +30,37 @@ sessionsRouter.get('/mine', requireAuth, async (req, res) => {
   res.json(mine.map(withHost));
 });
 
+const MAX_SHORT_FIELD = 200;
+const MAX_DETAILS = 2000;
+const MIN_CAPACITY = 2;
+const MAX_CAPACITY = 20;
+
 sessionsRouter.post('/', requireAuth, async (req, res) => {
-  const { course, date, time, location, capacity, details } = req.body;
+  const course = String(req.body.course || '').trim();
+  const date = String(req.body.date || '').trim();
+  const time = String(req.body.time || '').trim();
+  const location = String(req.body.location || '').trim();
+  const details = String(req.body.details || '').trim();
+
   if (!course || !date || !time || !location) {
     return res.status(400).json({ error: 'course, date, time, and location are required.' });
   }
+  if (course.length > MAX_SHORT_FIELD || location.length > MAX_SHORT_FIELD) {
+    return res.status(400).json({ error: `course and location must be ${MAX_SHORT_FIELD} characters or fewer.` });
+  }
+  if (details.length > MAX_DETAILS) {
+    return res.status(400).json({ error: `details must be ${MAX_DETAILS} characters or fewer.` });
+  }
+
+  const capacity = Math.min(MAX_CAPACITY, Math.max(MIN_CAPACITY, Number(req.body.capacity) || 4));
 
   const session = await createSession({
     course,
     date,
     time,
     location,
-    capacity: Number(capacity) || 4,
-    details: details || '',
+    capacity,
+    details,
     host: toPublicUser(req.user),
   });
 
