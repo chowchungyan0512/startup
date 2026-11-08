@@ -117,12 +117,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] I completed the prerequisites for this deliverable (GitHub link, Git commits)
-- [x] **Node.js/Express HTTP service** - Added `service/server.js`, an Express app with JSON body parsing and cookie parsing middleware.
-- [x] **Static middleware for frontend** - `express.static(dist)` with a catch-all route serves the built React app from the same service in production.
-- [x] **Calls to third party endpoints** - `GET /api/study-break` in `service/routes/misc.js` calls the public icanhazdadjoke.com API server-side and returns the result.
-- [x] **Backend service endpoints** - `service/routes/auth.js`, `sessions.js`, and `profile.js` provide registration/login/logout, study-session search/create/join, and profile read/update plus a public classmate lookup.
-- [ ] **Frontend calls service endpoints** - Not yet for this submission: the React Part 2 deliverable's instructions call for mocking functionality instead, so `src/mock/store.js` (localStorage) is what the deployed frontend actually talks to right now. The real service exists and is fully testable with curl/Postman, and wiring the frontend to it is the next step.
+- [x] I completed the prerequisites for this deliverable (Simon Service deployed to [simon.campusconnect.click](https://simon.campusconnect.click), with a footer link back to this startup repository, Git commits)
+- [x] **Node.js/Express HTTP service** - `service/index.js`, an Express app with JSON body parsing and cookie parsing middleware, running on port 4000.
+- [x] **Static middleware for frontend** - `express.static` with a catch-all route serves the built React app (`service/public`, placed there by `deployService.sh`) from the same service in production.
+- [x] **Calls to third party endpoints** - The frontend's "Need a study break?" card on the dashboard calls our backend's `GET /api/study-break` (`service/routes/misc.js`), which calls the public icanhazdadjoke.com API server-side and returns the result.
+- [x] **Backend service endpoints** - `service/routes/auth.js`, `sessions.js`, and `profile.js` provide registration/login/logout, study-session search/create/join, and profile read/update plus a public classmate lookup, all backed by MongoDB.
+- [x] **Frontend calls service endpoints** - `AuthContext`, `Home`, `FindPartners`, `StudySession`, and `Profile` all call real `/api/...` endpoints with `fetch` now (switched back from the Reactivity deliverable's localStorage mock). Only `Chat` still uses the local mock, since there's no chat endpoint yet - that's the WebSocket deliverable.
 - [x] **Supports registration, login, logout, and restricted endpoint** - `middleware/auth.js`'s `requireAuth` protects endpoints like `GET /api/auth/me`, `PUT /api/profile`, and session create/join behind a valid session cookie.
 - [x] **Uses BCrypt to hash passwords** - `bcryptjs` hashes passwords on register and verifies them on login in `service/routes/auth.js`.
 

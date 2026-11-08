@@ -44,6 +44,15 @@ Reviewed and deployed the course's Simon React example (with reactivity already 
 - `useEffect` + `setInterval` is a good stand-in for "data the server will eventually push": I used it for a simulated notification feed on the dashboard and a simulated incoming chat message, both returning a cleanup function that calls `clearInterval` so the interval doesn't keep running after the component unmounts.
 - Learned the hard way that `await someSyncFunction()` inside a `try/catch` still works for catching thrown errors — so a mock function doesn't need to be artificially wrapped in a Promise just to match the shape of code that will later call a real async API.
 
+## Service
+
+Reviewed and deployed the course's Simon Service example to simon.campusconnect.click (replacing the Simon React routing/reactivity-only version), then converted my own startup into a real Node/Express backend. Things I learned:
+
+- The deploy script matters as much as the code: `deployService.sh` copies the Vite build into a `public/` folder *next to* `service/index.js` on the server, not into a sibling `dist/` folder the way my old `deployReact.sh` did. My `index.js` was still looking for `../dist` from the old layout, so the API worked perfectly in production but the homepage itself 404'd until I changed it to serve `__dirname/public`. A good reminder to actually load the deployed site, not just curl the API, after deploying.
+- The course's own deployService.sh copies `service/*.js` and `service/*.json` with flat globs, which silently drops subdirectories. My service has `middleware/` and `routes/` folders (Simon's doesn't), so I had to change the copy step to walk every item in `service/` instead, skipping only `node_modules`.
+- Moved from the React Part 2 deliverable's localStorage mock back to real `fetch` calls now that a backend exists. Since I'd written the mock functions to mirror what a real API call would look like, most of the swap was just replacing `store.xyz(...)` with the matching `fetch('/api/xyz', ...)` - the component logic (state, effects, error handling) barely changed.
+- `FindPartners`'s filter buckets (location/date/availability/size) used to be precomputed and stored directly on each mock session. The real backend just stores the plain fields a user typed (location text, a date, a time, a number), so I moved that "guess a filter key from plain text" logic into a small frontend util instead of teaching the backend about it - keeps the service simple and avoids filtering logic living in two places that could drift apart.
+
 ## DB
 
 Set up a free MongoDB Atlas cluster and switched `service/db.js` from in-memory arrays to real collection calls. Things I learned:
