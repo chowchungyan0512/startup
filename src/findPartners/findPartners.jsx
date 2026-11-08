@@ -1,12 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { SessionCard } from '../common/sessionCard';
-import { useAuth } from '../auth/AuthContext';
-import * as store from '../mock/store';
+import { deriveAvailability, deriveDateKey, deriveLocationKey, deriveSize } from '../util/sessionFilters';
 import './findPartners.css';
 
 export function FindPartners() {
-  const { user } = useAuth();
-  const [sessions, setSessions] = useState(() => store.getSessions());
+  const [sessions, setSessions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -16,25 +14,43 @@ export function FindPartners() {
   const [size, setSize] = useState('');
   const [joinError, setJoinError] = useState('');
 
+  async function loadSessions() {
+    const response = await fetch('/api/sessions');
+    if (response.ok) {
+      setSessions(await response.json());
+    }
+  }
+
+  useEffect(() => {
+    loadSessions();
+  }, []);
+
   const results = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
     return sessions.filter((session) => {
-      const matchesSearch = !term || session.course.toLowerCase().includes(term) || session.subject.includes(term);
-      const matchesLocation = !location || session.locationKey === location;
-      const matchesDate = !date || session.dateKey === date;
-      const matchesStyle = !style || session.style === style;
-      const matchesAvailability = !availability || session.availability === availability;
-      const matchesSize = !size || session.size === size;
+      const locationKey = deriveLocationKey(session.location);
+      const dateKey = deriveDateKey(session.date);
+      const sessionAvailability = deriveAvailability(session.time);
+      const sessionSize = deriveSize(session.capacity);
+
+      const matchesSearch = !term || session.course.toLowerCase().includes(term);
+      const matchesLocation = !location || locationKey === location;
+      const matchesDate = !date || dateKey === date;
+      const matchesStyle = !style; // the create-session form doesn't collect a study style yet
+      const matchesAvailability = !availability || sessionAvailability === availability;
+      const matchesSize = !size || sessionSize === size;
       return matchesSearch && matchesLocation && matchesDate && matchesStyle && matchesAvailability && matchesSize;
     });
   }, [sessions, searchTerm, location, date, style, availability, size]);
 
-  function handleJoin(sessionId) {
-    try {
-      setJoinError('');
-      setSessions(store.joinSession(sessionId, user.id));
-    } catch (err) {
-      setJoinError(err.message);
+  async function handleJoin(sessionId) {
+    setJoinError('');
+    const response = await fetch(`/api/sessions/${sessionId}/join`, { method: 'POST' });
+    if (response.ok) {
+      loadSessions();
+    } else {
+      const data = await response.json().catch(() => ({}));
+      setJoinError(data.error || 'Could not join that session.');
     }
   }
 
@@ -148,7 +164,7 @@ export function FindPartners() {
             ))}
           </div>
         )}
-        <p className="data-note"><strong>Mocked data:</strong> Sessions are stored in localStorage until the Service deliverable adds a real backend.</p>
+        <p className="data-note"><strong>Live data:</strong> These sessions are loaded from the CampusConnect backend at /api/sessions.</p>
       </section>
     </main>
   );
