@@ -11,7 +11,7 @@ import { connectToDatabase } from './database.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const port = process.argv[2] || process.env.PORT || 3000;
+const port = process.argv[2] || process.env.PORT || 4000;
 
 await connectToDatabase();
 
@@ -32,5 +32,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`CampusConnect service listening on http://localhost:${port}`);
+  console.log(`CampusConnect service listening on port ${port}`);
 });
