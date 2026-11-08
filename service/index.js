@@ -24,8 +24,11 @@ app.use('/api/sessions', sessionsRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api', miscRouter);
 
-// Serve the built React frontend (run `npm run build` in the project root first).
-const staticDir = path.join(__dirname, '..', 'dist');
+// Serve the built React frontend. deployService.sh copies the Vite build
+// into a "public" folder alongside this file in production; locally, this
+// path is only exercised if you build the frontend into service/public
+// yourself (normal local dev uses `npm run dev`'s proxy instead).
+const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir));
 app.get('*', (req, res) => {
   res.sendFile(path.join(staticDir, 'index.html'));
