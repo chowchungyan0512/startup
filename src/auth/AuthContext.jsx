@@ -10,6 +10,7 @@ export function AuthProvider({ children }) {
     fetch('/api/auth/me')
       .then((response) => (response.ok ? response.json() : null))
       .then(setUser)
+      .catch(() => setUser(null))
       .finally(() => setLoading(false));
   }, []);
 
