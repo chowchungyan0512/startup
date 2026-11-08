@@ -2,14 +2,14 @@ import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
 import { createUser, findUserByEmail, toPublicUser } from '../db.js';
-import { authTokens } from '../sessionTokens.js';
+import { createToken, deleteToken } from '../sessionTokens.js';
 import { requireAuth } from '../middleware/auth.js';
 
 export const authRouter = Router();
 
-function startSession(res, userId) {
+async function startSession(res, userId) {
   const token = crypto.randomBytes(32).toString('hex');
-  authTokens.set(token, userId);
+  await createToken(token, userId);
   res.cookie('token', token, { httpOnly: true, sameSite: 'lax' });
 }
 
@@ -26,7 +26,7 @@ authRouter.post('/register', async (req, res) => {
   const username = email.split('@')[0].toLowerCase();
   const user = await createUser({ email, passwordHash, name, username, major: '', year: '', classes: '' });
 
-  startSession(res, user.id);
+  await startSession(res, user.id);
   res.status(201).json(toPublicUser(user));
 });
 
@@ -39,12 +39,12 @@ authRouter.post('/login', async (req, res) => {
     return res.status(401).json({ error: 'Incorrect email or password.' });
   }
 
-  startSession(res, user.id);
+  await startSession(res, user.id);
   res.json(toPublicUser(user));
 });
 
-authRouter.post('/logout', requireAuth, (req, res) => {
-  authTokens.delete(req.cookies.token);
+authRouter.post('/logout', requireAuth, async (req, res) => {
+  await deleteToken(req.cookies.token);
   res.clearCookie('token');
   res.status(204).end();
 });

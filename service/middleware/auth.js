@@ -1,10 +1,10 @@
 import { findUserById } from '../db.js';
-import { authTokens } from '../sessionTokens.js';
+import { findUserIdByToken } from '../sessionTokens.js';
 
 // Attaches req.user when a valid session cookie is present, but never blocks the request.
 export async function attachUser(req, res, next) {
   const token = req.cookies?.token;
-  const userId = token && authTokens.get(token);
+  const userId = await findUserIdByToken(token);
   req.user = userId ? await findUserById(userId) : null;
   next();
 }
