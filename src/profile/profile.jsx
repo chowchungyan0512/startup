@@ -4,7 +4,6 @@ import '../common/profileLayout.css';
 import './profile.css';
 import profilePlaceholder from '../assets/placeholder.png';
 import { useAuth } from '../auth/AuthContext';
-import * as store from '../mock/store';
 
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const timesOfDay = ['morning', 'afternoon', 'evening'];
@@ -31,11 +30,22 @@ export function Profile() {
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const updated = store.updateCurrentUser({ major, year, classes, studyStyle, bio, availability });
-    setUser(updated);
-    setStatus('Saved!');
+    setStatus('Saving...');
+
+    const response = await fetch('/api/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ major, year, classes, studyStyle, bio, availability }),
+    });
+
+    if (response.ok) {
+      setUser(await response.json());
+      setStatus('Saved!');
+    } else {
+      setStatus('Could not save your profile.');
+    }
   }
 
   return (
@@ -128,7 +138,7 @@ export function Profile() {
             <button className="button button-primary" type="submit">Save profile</button>
           </div>
           <div className="service-note"><strong>Third-party service placeholder:</strong> A calendar API will sync your availability and joined sessions with your personal calendar.</div>
-          <p className="form-note">{status || 'Mocked data: saved to localStorage until the Service deliverable.'}</p>
+          <p className="form-note">{status || 'Live data: this form reads and writes /api/profile.'}</p>
         </form>
       </section>
     </main>
