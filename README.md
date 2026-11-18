@@ -130,9 +130,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] I completed the prerequisites for this deliverable (Service deliverable backend built, GitHub link, Git commits)
-- [x] **Stores data in MongoDB** - Set up a free MongoDB Atlas cluster and added `service/database.js` (connects via `MongoClient`, pings on startup) plus a `service/dbConfig.json` (gitignored, never committed) holding the connection credentials. `service/db.js` now reads/writes `users` and `sessions` collections instead of in-memory arrays, using `insertOne`, `find`, `findOne`, `updateOne`, and `$addToSet` for joining a session.
-- [x] **Stores credentials in MongoDB** - Registered users' bcrypt password hashes are stored in the `users` collection in Atlas, not in memory. Verified end-to-end with curl: register, login (including a wrong-password 401), update profile, and logout, then restarted the service and confirmed the data (including a session's joined participant) was still there, proving it's persisted in MongoDB rather than reset on restart.
+- [x] I completed the prerequisites for this deliverable (Simon DB deployed to [simon.campusconnect.click](https://simon.campusconnect.click) with its own `dbConfig.json` credentials, footer link back to this startup repository, Git commits)
+- [x] **Stores data in MongoDB** - Set up a free MongoDB Atlas cluster and added `service/database.js` (connects via `MongoClient`, pings on startup) plus a `service/dbConfig.json` (gitignored, never committed) holding the connection credentials. `service/db.js` reads/writes `users` and `sessions` collections instead of in-memory arrays, using `insertOne`, `find`, `findOne`, `updateOne`, and `$addToSet` for joining a session.
+- [x] **Stores credentials in MongoDB** - Registered users' bcrypt password hashes are stored in the `users` collection in Atlas, not in memory, and login session tokens are stored in an `authTokens` collection (`service/sessionTokens.js`) rather than an in-memory Map. Verified end-to-end: registered a user, created a session, killed the service process entirely, started a brand new one, and confirmed both the session data and the original login cookie still worked against the new process - proof it survives a real restart, not just a reload.
 
 ## 🚀 WebSocket deliverable
 
