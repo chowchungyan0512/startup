@@ -20,19 +20,19 @@ function toRecord(doc) {
   return { id: _id.toString(), ...rest };
 }
 
-function escapeRegex(text) {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
 export async function createUser(user) {
+  // Store email lowercase so lookups can use an exact match (and the unique
+  // index on it) instead of a case-insensitive regex, which can't use a
+  // standard index efficiently.
+  const record = { ...user, email: user.email.toLowerCase() };
   // insertOne mutates its argument by adding _id, so insert a copy and keep
   // the original clean for the response.
-  const result = await usersCollection().insertOne({ ...user });
-  return { id: result.insertedId.toString(), ...user };
+  const result = await usersCollection().insertOne({ ...record });
+  return { id: result.insertedId.toString(), ...record };
 }
 
 export async function findUserByEmail(email) {
-  const doc = await usersCollection().findOne({ email: new RegExp(`^${escapeRegex(email)}$`, 'i') });
+  const doc = await usersCollection().findOne({ email: email.toLowerCase() });
   return toRecord(doc);
 }
 

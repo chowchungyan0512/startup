@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import { createUser, findUserByEmail, toPublicUser } from '../db.js';
 import { createToken, deleteToken } from '../sessionTokens.js';
 import { requireAuth } from '../middleware/auth.js';
+import { asyncHandler } from '../asyncHandler.js';
 
 export const authRouter = Router();
 
@@ -13,41 +14,62 @@ async function startSession(res, userId) {
   res.cookie('token', token, { httpOnly: true, sameSite: 'lax' });
 }
 
-authRouter.post('/register', async (req, res) => {
-  const { email, password, name } = req.body;
-  if (!email || !password || !name) {
-    return res.status(400).json({ error: 'email, password, and name are required.' });
-  }
-  if (await findUserByEmail(email)) {
-    return res.status(409).json({ error: 'An account with that email already exists.' });
-  }
+authRouter.post(
+  '/register',
+  asyncHandler(async (req, res) => {
+    const { email, password, name } = req.body;
+    if (!email || !password || !name) {
+      return res.status(400).json({ error: 'email, password, and name are required.' });
+    }
+    if (await findUserByEmail(email)) {
+      return res.status(409).json({ error: 'An account with that email already exists.' });
+    }
 
-  const passwordHash = await bcrypt.hash(password, 10);
-  const username = email.split('@')[0].toLowerCase();
-  const user = await createUser({ email, passwordHash, name, username, major: '', year: '', classes: '' });
+    const passwordHash = await bcrypt.hash(password, 10);
+    const username = email.split('@')[0].toLowerCase();
 
-  await startSession(res, user.id);
-  res.status(201).json(toPublicUser(user));
-});
+    let user;
+    try {
+      user = await createUser({ email, passwordHash, name, username, major: '', year: '', classes: '' });
+    } catch (err) {
+      // The findUserByEmail check above is the normal path; this unique-index
+      // violation only fires if two registrations race each other.
+      if (err.code === 11000) {
+        return res.status(409).json({ error: 'An account with that email already exists.' });
+      }
+      throw err;
+    }
 
-authRouter.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await findUserByEmail(email || '');
-  const passwordMatches = user && (await bcrypt.compare(password || '', user.passwordHash));
+    await startSession(res, user.id);
+    res.status(201).json(toPublicUser(user));
+  })
+);
 
-  if (!passwordMatches) {
-    return res.status(401).json({ error: 'Incorrect email or password.' });
-  }
+authRouter.post(
+  '/login',
+  asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    const user = await findUserByEmail(email || '');
+    const passwordMatches = user && (await bcrypt.compare(password || '', user.passwordHash));
 
-  await startSession(res, user.id);
-  res.json(toPublicUser(user));
-});
+    if (!passwordMatches) {
+      return res.status(401).json({ error: 'Incorrect email or password.' });
+    }
 
-authRouter.post('/logout', requireAuth, async (req, res) => {
-  await deleteToken(req.cookies.token);
-  res.clearCookie('token');
-  res.status(204).end();
-});
+    await startSession(res, user.id);
+    res.json(toPublicUser(user));
+  })
+);
+
+authRouter.post(
+  '/logout',
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    await deleteToken(req.cookies.token);
+    res.clearCookie('token');
+    res.status(204).end();
+  })
+);
 
 authRouter.get('/me', requireAuth, (req, res) => {
   res.json(toPublicUser(req.user));
