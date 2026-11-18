@@ -34,6 +34,13 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(staticDir, 'index.html'));
 });
 
+// Catches anything an async route handler throws instead of letting it
+// crash the whole process as an unhandled rejection.
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: 'Something went wrong on our end.' });
+});
+
 app.listen(port, () => {
   console.log(`CampusConnect service listening on port ${port}`);
 });

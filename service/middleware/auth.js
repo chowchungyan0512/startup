@@ -1,13 +1,14 @@
 import { findUserById } from '../db.js';
 import { findUserIdByToken } from '../sessionTokens.js';
+import { asyncHandler } from '../asyncHandler.js';
 
 // Attaches req.user when a valid session cookie is present, but never blocks the request.
-export async function attachUser(req, res, next) {
+export const attachUser = asyncHandler(async (req, res, next) => {
   const token = req.cookies?.token;
   const userId = await findUserIdByToken(token);
   req.user = userId ? await findUserById(userId) : null;
   next();
-}
+});
 
 // Blocks the request unless attachUser found a logged-in user.
 export function requireAuth(req, res, next) {
